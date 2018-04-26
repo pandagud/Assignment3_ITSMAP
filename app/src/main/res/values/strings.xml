@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Assignment3</string>
+    <string name="Brugernavn">Brugernavn*</string>
+    <string name="Kodeord">Kodeord*</string>
+    <string name="GentagKodeord">Gentag Kodeord*</string>
+    <string name="Køn">Køn</string>
+    <string name="Mand">Mand</string>
+    <string name="Kvinde">Kvinde</string>
+    <string name="Fødselsdag">Fødselsdag</string>
+    <string name="Vægt">Vægt</string>
+    <string name="Højde">Højde</string>
 </resources>
