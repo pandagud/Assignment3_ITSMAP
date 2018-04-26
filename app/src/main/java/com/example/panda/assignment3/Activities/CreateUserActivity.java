@@ -1,9 +1,11 @@
-package com.example.panda.assignment3;
+package com.example.panda.assignment3.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Main2Activity extends AppCompatActivity {
+import com.example.panda.assignment3.R;
+
+public class CreateUserActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
