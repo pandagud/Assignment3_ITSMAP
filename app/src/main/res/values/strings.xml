@@ -11,4 +11,14 @@
     <string name="Højde">Højde</string>
     <string name="Fortryd">Fortryd</string>
     <string name="Opret">Opret</string>
+    <string name="Fortsæt">Fortsæt</string>
+    <string name="Kaloriemål">Dit kaloriemål er:</string>
+
+    <string-array name="activity_level">
+        <item>Inaktiv</item>
+        <item>Let aktiv</item>
+        <item>Moderat aktiv</item>
+        <item>Meget aktiv</item>
+        <item>Ekstremt aktiv</item>
+    </string-array>
 </resources>
