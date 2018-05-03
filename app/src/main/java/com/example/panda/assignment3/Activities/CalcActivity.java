@@ -6,10 +6,14 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.example.panda.assignment3.R;
 
 public class CalcActivity extends AppCompatActivity {
+
+    private TextView twCalCalorieGoal, twCalcCarbs, twCalcFat, twCalcProt, twCalcSteps, twCalcStepsKcal;
+    private Button btCalcEditUser, btCalcLogOff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
