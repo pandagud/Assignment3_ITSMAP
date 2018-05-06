@@ -1,7 +1,6 @@
 package com.example.panda.assignment3.Activities;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,8 +14,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.panda.assignment3.DataBases.Database;
-import com.example.panda.assignment3.DataBases.User;
 import com.example.panda.assignment3.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,8 +27,6 @@ public class CreateUserActivity extends AppCompatActivity {
     private Button btCreateUserCancel, btCreateUserCreate;
     private Spinner activitySponnerCreateUser;
     private FirebaseAuth auth;
-    private Database fdatabase;
-    private User user;
 
 
     @Override
@@ -43,13 +38,12 @@ public class CreateUserActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         etRepeatPassword = findViewById(R.id.etRepeatPassword);
         auth = FirebaseAuth.getInstance();
-        fdatabase = new Database();
         btCreateUserCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                final String email = etUsername.getText().toString().trim();
-                final String password = etPassword.getText().toString().trim();
+                String email = etUsername.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
                 String repeatPassword= etRepeatPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
@@ -62,12 +56,12 @@ public class CreateUserActivity extends AppCompatActivity {
                     return;
                 }
 
-                Spinner activitySpinner = findViewById(R.id.activitySpinnerCreateUSer);
+        Spinner activitySpinner = findViewById(R.id.activitySpinnerCreateUSer);
 
-                ArrayAdapter<CharSequence> activityAdapter = ArrayAdapter.createFromResource(getBaseContext(), R.array.activity_level, android.R.layout.simple_spinner_item);
-                    activityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> activityAdapter = ArrayAdapter.createFromResource(this, R.array.activity_level, android.R.layout.simple_spinner_item);
+        activityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                activitySpinner.setAdapter(activityAdapter);
+        activitySpinner.setAdapter(activityAdapter);
                 if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
                     return;
@@ -89,11 +83,6 @@ public class CreateUserActivity extends AppCompatActivity {
                                     Toast.makeText(CreateUserActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    user = new User();
-                                    user.setEmail(email);
-                                    user.setPassword(password);
-                                    user.setID(auth.getCurrentUser().getUid());
-                                    fdatabase.saveUser(user);
                                     startActivity(new Intent(CreateUserActivity.this, LoginActivity.class));
                                     finish();
                                 }

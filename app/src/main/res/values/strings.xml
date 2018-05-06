@@ -23,4 +23,11 @@
     <string name="Login">Login</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
     <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
+    <string name="MakroNæring">Makronæringsstoffer</string>
+    <string name="Kulhydrater">Kulhydrater:</string>
+    <string name="Fedt">Fedt:</string>
+    <string name="Protein">Protein:</string>
+    <string name="DuHarGået">Du har gået:</string>
+    <string name="Redigerinfo">Rediger info</string>
+    <string name="LogAf">Log Af</string>
 </resources>
