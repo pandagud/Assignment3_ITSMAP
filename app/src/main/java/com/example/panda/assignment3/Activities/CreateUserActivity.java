@@ -73,16 +73,12 @@ public class CreateUserActivity extends AppCompatActivity {
                 }
 
 
-                //create user
                 auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(CreateUserActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 Toast.makeText(CreateUserActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
 
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(CreateUserActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();

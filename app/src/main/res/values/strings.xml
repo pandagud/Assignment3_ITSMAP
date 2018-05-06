@@ -13,7 +13,6 @@
     <string name="Opret">Opret</string>
     <string name="Fortsæt">Fortsæt</string>
     <string name="Kaloriemål">Dit kaloriemål er:</string>
-
     <string-array name="activity_level">
         <item>Inaktiv</item>
         <item>Let aktiv</item>
