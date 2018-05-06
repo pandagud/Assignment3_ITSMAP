@@ -7,6 +7,17 @@
     tools:context=".Activities.CreateUserActivity">
 
     <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginStart="64dp"
+        android:text="@string/Aktivitetsniveau"
+        app:layout_constraintBottom_toTopOf="@+id/activitySpinnerCreateUSer"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/twUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
@@ -119,7 +129,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
@@ -173,43 +182,32 @@
         android:id="@+id/btCreateUserCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginStart="56dp"
         android:text="@string/Opret"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btCreateUserCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginStart="56dp"
         android:text="@string/Fortryd"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btCreateUserCreate"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/activitySpinnerCreateUSer"
         android:layout_width="243dp"
         android:layout_height="29dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="110dp"
-        android:layout_marginRight="110dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/Aktivitetsniveau"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etInfoWeight" />
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="164dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

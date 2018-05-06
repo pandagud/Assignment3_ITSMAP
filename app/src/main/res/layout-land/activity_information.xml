@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".Activities.InformationActivity">
 
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="128dp"
+        android:layout_marginRight="128dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/Aktivitetsniveau"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etInfoWeight" />
+
     <Spinner
         android:id="@+id/activitySpinnerInfo"
         android:layout_width="243dp"
@@ -14,7 +25,7 @@
         android:layout_marginRight="32dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView
         android:id="@+id/twCalcGender"
@@ -51,22 +62,22 @@
         android:id="@+id/btInfoContinue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginStart="56dp"
         android:text="@string/Fortsæt"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btInfoCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginStart="56dp"
         android:text="@string/Fortryd"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btInfoContinue"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -134,16 +145,5 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etInfoHeight" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="128dp"
-        android:layout_marginRight="128dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/Aktivitetsniveau"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etInfoWeight" />
 
 </android.support.constraint.ConstraintLayout>
