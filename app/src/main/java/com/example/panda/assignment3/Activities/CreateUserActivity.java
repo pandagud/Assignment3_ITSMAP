@@ -58,7 +58,7 @@ public class CreateUserActivity extends AppCompatActivity {
 
         Spinner activitySpinner = findViewById(R.id.activitySpinnerCreateUSer);
 
-        ArrayAdapter<CharSequence> activityAdapter = ArrayAdapter.createFromResource(this, R.array.activity_level, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> activityAdapter = ArrayAdapter.createFromResource(getBaseContext(), R.array.activity_level, android.R.layout.simple_spinner_item);
         activityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         activitySpinner.setAdapter(activityAdapter);
