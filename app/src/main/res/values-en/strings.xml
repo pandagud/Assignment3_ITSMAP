@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Assignment3</string>
+    <string name="Brugernavn">Username*</string>
+    <string name="Kodeord">Password*</string>
+    <string name="GentagKodeord">Repeat Password*</string>
+    <string name="Køn">Sex</string>
+    <string name="Mand">Male</string>
+    <string name="Kvinde">Female</string>
+    <string name="Fødselsdag">Birthday</string>
+    <string name="Vægt">Weight</string>
+    <string name="Højde">Height</string>
+    <string name="Fortryd">Cancel</string>
+    <string name="Opret">Create</string>
+    <string name="Fortsæt">Continue</string>
+    <string name="Kaloriemål">Your caloriegoal is:</string>
+    <string name="Login">Login</string>
+    <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
+    <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
+    <string name="MakroNæring">Macronutrients</string>
+    <string name="Kulhydrater">Carbohydrates:</string>
+    <string name="Fedt">Fat:</string>
+    <string name="Protein">Protein:</string>
+    <string name="DuHarGået">You have walked:</string>
+    <string name="Redigerinfo">Edit info</string>
+    <string name="LogAf">Log Off</string>
+    <string name="Aktivitetsniveau">Activity level</string>
+</resources>

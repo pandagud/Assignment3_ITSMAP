@@ -13,4 +13,7 @@ public class Global {
     public static final String INFORMATION_KEY = "Information";
     public static final String DATABASELOG = "DatabaseLOG";
 
+
+    public static final String INTENT_CODE_TO_CALCACTIVITY = "intent_code_calcactivity";
+    public static final String INTENT_CODE_TO_INFORMATIONACTIVITY = "intent_code_informationactivity";
 }

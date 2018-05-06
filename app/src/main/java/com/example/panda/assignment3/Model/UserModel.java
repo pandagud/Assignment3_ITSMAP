@@ -1,9 +1,11 @@
 package com.example.panda.assignment3.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class UserModel {
+
+public class UserModel implements Serializable {
 
     private String sex;
     private String birthday;
