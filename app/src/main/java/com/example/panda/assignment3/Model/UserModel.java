@@ -6,19 +6,22 @@ import java.util.Date;
 public class UserModel {
 
     private String sex;
-    private Date birthday;
+    private String birthday;
     private double height;
     private double weight;
     private double activityLevel;
     private ArrayList<Double> stepsList;
 
-    public UserModel(String sex, Date birthday, double height, double weight, double activityLevel, ArrayList<Double> stepsList) {
+    public UserModel(String sex, String birthday, double height, double weight, double activityLevel, ArrayList<Double> stepsList) {
         this.sex = sex;
         this.birthday = birthday;
         this.height = height;
         this.weight = weight;
         this.activityLevel = activityLevel;
         this.stepsList = stepsList;
+    }
+    public UserModel()
+    {
     }
 
     public ArrayList<Double> getStepsList() {
@@ -41,11 +44,11 @@ public class UserModel {
         }
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

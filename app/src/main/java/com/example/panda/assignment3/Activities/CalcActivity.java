@@ -104,9 +104,9 @@ public class CalcActivity extends AppCompatActivity {
     // Calculating the kalories needed
     private double CalculateKalories(UserModel userModel){
         if(userModel.getSex() == "Male"){
-            return (10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) + 5);
+            return (10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 );//* CalculateAge(userModel.getBirthday()) + 5);
         } else if(userModel.getSex() == "Female"){
-            return (10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) / 161);
+            return (10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 );//* CalculateAge(userModel.getBirthday()) / 161);
         } else {
             return 0;
         }

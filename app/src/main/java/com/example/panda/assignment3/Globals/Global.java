@@ -9,5 +9,8 @@ public class Global {
     public static final String HEIGHT_KEY = "height";
     public static final String WEIGHT_KEY = "weight";
     public static final String ACTIVITY_KEY = "activity";
+    public static final String USER_KEY = "user";
+    public static final String INFORMATION_KEY = "Information";
+    public static final String DATABASELOG = "DatabaseLOG";
 
 }
