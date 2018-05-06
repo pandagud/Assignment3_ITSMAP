@@ -52,7 +52,7 @@ public class CalcActivity extends AppCompatActivity {
          intentBundle = getIntent().getExtras();
          if(intentBundle != null){
              if(intentBundle.isEmpty() == false){
-
+                currentUser = (UserModel) intentBundle.getSerializable("gh");
              }
          }
 
@@ -90,7 +90,7 @@ public class CalcActivity extends AppCompatActivity {
 
     // Updates the textview elements in the UI
     private void UpdateUI(){
-        currentCalories = CalculateKalories(currentUser);
+        currentCalories = CalculateCalories(currentUser);
         if(currentCalories > 0) {
             twCalCalorieGoal.setText(currentCalories + " kcal");
             twCalcCarbs.setText(CalculateCarbs(currentCalories) + " g");
@@ -102,7 +102,7 @@ public class CalcActivity extends AppCompatActivity {
     }
 
     // Calculating the kalories needed
-    private double CalculateKalories(UserModel userModel){
+    private double CalculateCalories(UserModel userModel){
         if(userModel.getSex() == "Male"){
             return (10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) + 5);
         } else if(userModel.getSex() == "Female"){
@@ -114,30 +114,35 @@ public class CalcActivity extends AppCompatActivity {
 
     // Calculate the age based on the users birthday
     private int CalculateAge(Date birthDate){
-        /*
         Date currentDate = Calendar.getInstance().getTime();
-        if ((birthDate != null) && (currentDate != null)) {
-            return Period.between(birthDate, currentDate).getYears();
-        } else {
-            return 0;
-        }
-        */
-        return 23;
+        return currentDate.getYear() - birthDate.getYear();
     }
 
     // Calculate carb intake
     private double CalculateCarbs(double calories){
-        return (calories * CARB_INTAKE_PERCENTAGE)/4;
+        if(calories != 0) {
+            return (calories * CARB_INTAKE_PERCENTAGE) / 4;
+        } else{
+            return 0;
+        }
     }
 
     // Calculate fat intake
     private double CalculateFat(double calories){
-        return (calories * FAT_INTAKE_PERCENTAGE)/9;
+        if(calories != 0) {
+            return (calories * FAT_INTAKE_PERCENTAGE) / 9;
+        }else{
+            return 0;
+        }
     }
 
     // Calculate protein intake
     private double CalculateProtein(double calories){
-        return (calories * PROTEIN_INTAKE_PERCENTAGE)/4;
+        if(calories != 0) {
+            return (calories * PROTEIN_INTAKE_PERCENTAGE) / 4;
+        }else{
+            return 0;
+        }
     }
 
 
