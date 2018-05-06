@@ -127,9 +127,10 @@ public class CalcActivity extends AppCompatActivity {
     }
 
     // Calculate the age based on the users birthday
-    private int CalculateAge(Date birthDate){
-        Date currentDate = Calendar.getInstance().getTime();
-        return currentDate.getYear() - birthDate.getYear();
+    private int CalculateAge(String birthDate){
+        //*
+        // Date currentDate = Calendar.getInstance().getTime();
+        return 23;
     }
 
     // Calculate carb intake
