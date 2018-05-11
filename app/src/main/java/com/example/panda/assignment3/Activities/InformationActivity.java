@@ -2,9 +2,6 @@ package com.example.panda.assignment3.Activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,18 +15,19 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.panda.assignment3.DataBases.Database;
+import com.example.panda.assignment3.Globals.ActivityParser;
+import com.example.panda.assignment3.Globals.Global;
 import com.example.panda.assignment3.Model.UserModel;
 import com.example.panda.assignment3.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class InformationActivity extends AppCompatActivity {
 
@@ -41,12 +39,13 @@ public class InformationActivity extends AppCompatActivity {
     private UserModel currentUser;
     private Database database;
     private DatePickerDialog.OnDateSetListener mDatasetListener;
+    private ActivityParser activityParser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
-
+        activityParser  = new ActivityParser();
         activitySponnerInfo = findViewById(R.id.activitySpinnerInfo);
 
         ArrayAdapter<CharSequence> activityAdapter = ArrayAdapter.createFromResource(this, R.array.activity_level, android.R.layout.simple_spinner_item);
@@ -83,7 +82,7 @@ public class InformationActivity extends AppCompatActivity {
 
 
         etInfoHeight=findViewById(R.id.etInfoHeight);
-        etInfoWeight=findViewById(R.id.etInfoWeight);
+        etInfoWeight=findViewById(R.id.etWeight);
         rbInfoMan = findViewById(R.id.rbInfoMan);
         rbInfoWoman=findViewById(R.id.rbInfoWoman);
 
@@ -92,6 +91,11 @@ public class InformationActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         database = new Database();
+        if(auth.getCurrentUser()!=null)
+        {
+            retriveUserModel(auth.getCurrentUser().getUid());
+        }
+
         btInfoCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,20 +139,29 @@ public class InformationActivity extends AppCompatActivity {
                 {
                     sex="female";
                 }
-                if(currentUser==null)
-                {
+                if(currentUser==null) {
                     // Test data
                     ArrayList<Double> stepsList = new ArrayList<Double>();
-
-
-
-
-                        currentUser = new UserModel(sex,birthday.toString(),1.89,89,85,stepsList);
-                        database.saveDataForUser(currentUser,auth.getCurrentUser().getUid());
-
-
+                    // Test data
+                    currentUser = new UserModel(sex, birthday.toString(), Double.parseDouble(height), Double.parseDouble(weight), activityParser.getActivityDouble(getBaseContext(),activitySponnerInfo.getSelectedItem().toString()), stepsList);
+                    database.saveDataForUser(currentUser, auth.getCurrentUser().getUid());
+                }
+                else{
+                    // Test data
+                    ArrayList<Double> stepsList = new ArrayList<Double>();
+                    // Test data
+                    currentUser.setSex(sex);
+                    currentUser.setBirthday(birthday.toString());
+                    currentUser.setHeight(Double.parseDouble(height));
+                    currentUser.setWeight(Double.parseDouble(weight));
+                    currentUser.setActivityLevel(activityParser.getActivityDouble(getBaseContext(),activitySponnerInfo.getSelectedItem().toString()));
+                    currentUser.setStepsList(stepsList);
 
                 }
+
+                Intent i = new Intent(InformationActivity.this,CalcActivity.class);
+                i.putExtra(Global.CALCACTIVITY_KEY,currentUser);
+                startActivity(i);
 
 
             }
@@ -158,10 +171,77 @@ public class InformationActivity extends AppCompatActivity {
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String test = auth.getCurrentUser().getUid();
-                database.retriveUserModel(auth.getCurrentUser().getUid());
+          updateUI(database.getRetrivedata());
+
             }
         });
+
+
+    }
+
+    public void updateUI(UserModel data)
+    {
+            etInfoBirthday.setText(data.getBirthday());
+            etInfoHeight.setText(String.valueOf(data.getHeight()));
+            etInfoWeight.setText(String.valueOf(data.getWeight()));
+            setSpinText(activitySponnerInfo,String.valueOf(data.getActivityLevel()));
+            setSex(data.getSex());
+    }
+    //https://stackoverflow.com/questions/13151699/set-text-on-spinner
+    public void setSpinText(Spinner spin, String text)
+    {
+        for(int i= 0; i < spin.getAdapter().getCount(); i++)
+        {
+            if(spin.getAdapter().getItem(i).toString().contains(text))
+            {
+                spin.setSelection(i);
+            }
+        }
+
+    }
+    public void setSex(String text)
+    {
+        if(text=="male")
+            rbInfoMan.setChecked(true);
+        else
+        {
+            rbInfoWoman.setChecked(true);
+        }
+    }
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putSerializable(Global.SAVEDINSTANCEUSERMODELOBJECT, database.getRetrivedata());
+
+    }
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        UserModel userModel = new UserModel();
+        userModel = (UserModel) savedInstanceState.getSerializable(Global.SAVEDINSTANCEUSERMODELOBJECT);
+        updateUI(userModel);
+
+    }
+    public void retriveUserModel(String ID)
+    {
+        final String _Id =ID;
+        FirebaseDatabase database= FirebaseDatabase.getInstance();
+        DatabaseReference childRef = database.getReference(Global.USER_KEY+"/"+ID+"/"+Global.INFORMATION_KEY);
+
+        childRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                UserModel value = dataSnapshot.getValue(UserModel.class);
+                updateUI(value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 

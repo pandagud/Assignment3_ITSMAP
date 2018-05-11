@@ -20,6 +20,7 @@ public class Database {
     DatabaseReference databaseref;
     private FirebaseAuth dauth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private  UserModel retrivedata;
 
 
     public Database()
@@ -67,22 +68,22 @@ public class Database {
         userData.put(Global.ACTIVITY_KEY,String.valueOf(userModel.getActivityLevel()));
         return userData;
     }
-    public void retriveUserModel(String ID)
+
+    public UserModel getRetrivedata()
     {
-        final String _Id =ID;
-        DatabaseReference childRef = database.getReference(Global.USER_KEY+"/"+ID+"/"+Global.INFORMATION_KEY);
-        childRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                UserModel value = dataSnapshot.getValue(UserModel.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        return retrivedata;
+    }
+    public void setRetrivedata(UserModel data)
+    {
+        if(retrivedata==null)
+        {
+            retrivedata = new UserModel();
+            retrivedata=data;
+        }
+        else
+        {
+            retrivedata=data;
+        }
     }
 
 
