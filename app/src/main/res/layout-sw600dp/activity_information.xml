@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.InformationActivity">
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="128dp"
+        android:layout_marginRight="128dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/Aktivitetsniveau"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etInfoWeight" />
+
+    <Spinner
+        android:id="@+id/activitySpinnerInfo"
+        android:layout_width="291dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/twCalcGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/Køn"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/rbInfoMan"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioButton
+        android:id="@+id/rbInfoMan"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/Mand"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/twCalcGender"
+        app:layout_constraintEnd_toStartOf="@+id/rbInfoWoman" />
+
+    <RadioButton
+        android:id="@+id/rbInfoWoman"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="@string/Kvinde"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/twCalcGender"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btInfoContinue"
+        android:layout_width="155dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginStart="56dp"
+        android:text="@string/Fortsæt"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btInfoCancel"
+        android:layout_width="155dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginStart="56dp"
+        android:text="@string/Fortryd"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/btInfoContinue"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/twCalcBirthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/Fødselsdag"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etInfoBirthday"
+        app:layout_constraintEnd_toStartOf="@+id/etInfoBirthday" />
+
+    <EditText
+        android:id="@+id/etInfoBirthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="date"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rbInfoMan" />
+
+    <TextView
+        android:id="@+id/twHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/Højde"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etInfoHeight"
+        app:layout_constraintEnd_toStartOf="@+id/etInfoHeight" />
+
+    <EditText
+        android:id="@+id/etInfoHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etInfoBirthday" />
+
+    <TextView
+        android:id="@+id/twWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/Vægt"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etInfoWeight"
+        app:layout_constraintEnd_toStartOf="@+id/etInfoWeight" />
+
+    <EditText
+        android:id="@+id/etInfoWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etInfoHeight" />
+
+</android.support.constraint.ConstraintLayout>

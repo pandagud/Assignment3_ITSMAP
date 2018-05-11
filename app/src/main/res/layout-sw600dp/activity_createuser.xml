@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.CreateUserActivity">
+
+    <TextView
+        android:id="@+id/twUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/Brugernavn"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etUsername"
+        app:layout_constraintEnd_toStartOf="@+id/etUsername" />
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/twPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/Kodeord"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etPassword"
+        app:layout_constraintEnd_toStartOf="@+id/etPassword" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etUsername" />
+
+    <TextView
+        android:id="@+id/twRepeatPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/GentagKodeord"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etRepeatPassword"
+        app:layout_constraintEnd_toStartOf="@+id/etRepeatPassword" />
+
+    <EditText
+        android:id="@+id/etRepeatPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
+    <TextView
+        android:id="@+id/twGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="@string/Køn"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/rbMan"
+        app:layout_constraintEnd_toStartOf="@+id/rbMan" />
+
+    <RadioButton
+        android:id="@+id/rbMan"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="@string/Mand"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/rbWoman"
+        app:layout_constraintEnd_toStartOf="@+id/rbWoman" />
+
+    <RadioButton
+        android:id="@+id/rbWoman"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/Kvinde"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etRepeatPassword" />
+
+    <TextView
+        android:id="@+id/twBirthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/Fødselsdag"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etBirthday"
+        app:layout_constraintEnd_toStartOf="@+id/etBirthday" />
+
+    <EditText
+        android:id="@+id/etBirthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="date"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rbMan" />
+
+    <EditText
+        android:id="@+id/etHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etBirthday" />
+
+    <TextView
+        android:id="@+id/twHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/Højde"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etHeight"
+        app:layout_constraintEnd_toStartOf="@+id/etHeight" />
+
+    <EditText
+        android:id="@+id/etInfoWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etHeight" />
+
+    <TextView
+        android:id="@+id/twWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/Vægt"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etInfoWeight"
+        app:layout_constraintEnd_toStartOf="@+id/etInfoWeight" />
+
+    <Button
+        android:id="@+id/btCreateUserCreate"
+        android:layout_width="155dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginStart="64dp"
+        android:text="@string/Opret"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btCreateUserCancel" />
+
+    <Button
+        android:id="@+id/btCreateUserCancel"
+        android:layout_width="155dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp"
+        android:text="@string/Fortryd"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/activitySpinnerCreateUSer"
+        android:layout_width="312dp"
+        android:layout_height="58dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="110dp"
+        android:layout_marginRight="110dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/Aktivitetsniveau"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etInfoWeight" />
+
+</android.support.constraint.ConstraintLayout>
