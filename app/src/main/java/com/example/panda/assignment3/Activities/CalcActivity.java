@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.panda.assignment3.Globals.Global;
 import com.example.panda.assignment3.Model.UserModel;
 import com.example.panda.assignment3.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.time.Period;
 import java.util.Date;
@@ -34,6 +35,7 @@ public class CalcActivity extends AppCompatActivity {
     private Button btCalcEditUser, btCalcLogOff;
     private UserModel currentUser;
     Bundle intentBundle;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,8 @@ public class CalcActivity extends AppCompatActivity {
         twCalcProt = findViewById(R.id.twCalcProt);
         twCalcSteps = findViewById(R.id.twCalcSteps);
         twCalcStepsKcal = findViewById(R.id.twCalcStepsKCal);
+
+        auth = FirebaseAuth.getInstance();
 
         // Get information from intent
          intentBundle = getIntent().getExtras();
@@ -75,7 +79,6 @@ public class CalcActivity extends AppCompatActivity {
                 InfoIntent.putExtra(Global.INTENT_CODE_TO_INFORMATIONACTIVITY,currentUser);
                 finish();
                 startActivity(InfoIntent);
-
             }
         });
 
@@ -84,6 +87,7 @@ public class CalcActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent LogOffIntent = new Intent(CalcActivity.this, LoginActivity.class);
+                auth.signOut();
                 finish();
                 startActivity(LogOffIntent);
             }
@@ -114,9 +118,9 @@ public class CalcActivity extends AppCompatActivity {
     // Calculating the calories needed
     private double CalculateCalories(UserModel userModel){
         if(userModel != null) {
-            if (userModel.getSex() == "Male") {
+            if (userModel.getSex().equals("male")) {
                 return (10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) + 5);
-            } else if (userModel.getSex() == "Female") {
+            } else if (userModel.getSex().equals("female")) {
                 return (10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) / 161);
             } else {
                 return 0;

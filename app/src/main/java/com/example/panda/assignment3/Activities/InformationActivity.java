@@ -160,7 +160,7 @@ public class InformationActivity extends AppCompatActivity {
                 }
 
                 Intent i = new Intent(InformationActivity.this,CalcActivity.class);
-                i.putExtra(Global.CALCACTIVITY_KEY,currentUser);
+                i.putExtra(Global.INTENT_CODE_TO_CALCACTIVITY,currentUser);
                 startActivity(i);
 
 
