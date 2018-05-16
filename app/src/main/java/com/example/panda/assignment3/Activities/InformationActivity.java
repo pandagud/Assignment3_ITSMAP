@@ -167,14 +167,6 @@ public class InformationActivity extends AppCompatActivity {
             }
         });
 
-        btnTest = findViewById(R.id.btntest);
-        btnTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-          updateUI(database.getRetrivedata());
-
-            }
-        });
 
 
     }
@@ -227,7 +219,6 @@ public class InformationActivity extends AppCompatActivity {
         final String _Id =ID;
         FirebaseDatabase database= FirebaseDatabase.getInstance();
         DatabaseReference childRef = database.getReference(Global.USER_KEY+"/"+ID+"/"+Global.INFORMATION_KEY);
-
         childRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
