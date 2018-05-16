@@ -25,7 +25,7 @@ import java.io.Serializable;
 public class LoginActivity extends AppCompatActivity {
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth;
-    private Button btnSignup, btnLogin, btnReset;
+    private Button btnSignup, btnLogin, btnContinueNoLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +35,18 @@ public class LoginActivity extends AppCompatActivity {
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
         btnLogin = (Button) findViewById(R.id.btn_login);
+        btnContinueNoLogin = findViewById(R.id.btntoContinueWithNoLogin);
 
         auth = FirebaseAuth.getInstance();
         checkNetwork();
+
+btnContinueNoLogin.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent i = new Intent(LoginActivity.this,InformationActivity.class);
+        startActivity(i);
+    }
+});
 
 
         btnSignup.setOnClickListener(new View.OnClickListener() {

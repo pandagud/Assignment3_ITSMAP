@@ -8,13 +8,13 @@
 
     <Button
         android:id="@+id/btntoCreate"
-        android:layout_width="wrap_content"
+        android:layout_width="176dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="104dp"
         android:layout_marginStart="104dp"
         android:layout_marginTop="44dp"
 
-        android:text="GoToCreateActivity"
+        android:text="@string/Registrer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
@@ -55,5 +55,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
+
+    <Button
+        android:id="@+id/btntoContinueWithNoLogin"
+        android:layout_width="181dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="104dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/ForsaetUdenLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btntoCreate" />
 
 </android.support.constraint.ConstraintLayout>

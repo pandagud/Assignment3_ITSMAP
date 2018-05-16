@@ -13,9 +13,11 @@ public class Global {
     public static final String INFORMATION_KEY = "Information";
     public static final String DATABASELOG = "DatabaseLOG";
     public static final String SAVEDINSTANCEUSERMODELOBJECT = "UsermodelObject";
+    public static final String INTENTFROMCALCACTIVITY = "Intentfromcalc";
     public static final String CONNECT = "networkconnect";
     public static final String SAVEDINSTANCEUSERINPUTLOGIN = "Userinputlogin";
     public static final String SAVEDINSTANCEUSERINPUTPASSWORD = "Userinputpassword";
+    public static final int REQUESTCODEFROMINFORMATIONTOCALC = 10;
 
 
     public static final String INTENT_CODE_TO_CALCACTIVITY = "intent_code_calcactivity";

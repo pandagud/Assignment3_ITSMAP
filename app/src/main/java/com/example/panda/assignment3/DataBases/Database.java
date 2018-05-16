@@ -36,11 +36,6 @@ public class Database {
     public void writeNewUser(User userdata)
     {
        databaseref = database.getReference(Global.USER_KEY+"/"+userdata.getID());
-       /*
-        Map<String,String> userData = new HashMap<String,String>();
-         userData.put(Global.EMAIL_KEY,userdata.getEmail());
-        userData.put(Global.PASSWORD_KEY,userdata.getPassword());
-         */
         databaseref.setValue(hashMapUser(userdata));
 
     }
@@ -58,17 +53,6 @@ public class Database {
 
         childRef.setValue(usermodeldata);
     }
-    public Map<String,String> hashMapUserModel(UserModel userModel)
-    {
-        Map<String,String> userData = new HashMap<String,String>();
-        userData.put(Global.SEX_KEY,userModel.getSex());
-        userData.put(Global.HEIGHT_KEY,String.valueOf(userModel.getHeight()));
-        userData.put(Global.WEIGHT_KEY,String.valueOf(userModel.getWeight()));
-        userData.put(Global.BIRTHDAY_KEY,userModel.getBirthday().toString());
-        userData.put(Global.ACTIVITY_KEY,String.valueOf(userModel.getActivityLevel()));
-        return userData;
-    }
-
     public UserModel getRetrivedata()
     {
         return retrivedata;

@@ -1,5 +1,6 @@
 package com.example.panda.assignment3.Activities;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.panda.assignment3.DataBases.Database;
+import com.example.panda.assignment3.DataBases.User;
 import com.example.panda.assignment3.Globals.ActivityParser;
 import com.example.panda.assignment3.Globals.Global;
 import com.example.panda.assignment3.Model.UserModel;
@@ -33,7 +35,7 @@ public class InformationActivity extends AppCompatActivity {
 
     private EditText etInfoBirthday, etInfoHeight, etInfoWeight;
     private RadioButton rbInfoMan, rbInfoWoman;
-    private Button btInfoCancel, btInfoCreate,btnTest;
+    private Button btInfoCancel, btInfoCreate;
     private Spinner activitySponnerInfo;
     private FirebaseAuth auth;
     private UserModel currentUser;
@@ -144,6 +146,7 @@ public class InformationActivity extends AppCompatActivity {
                     ArrayList<Double> stepsList = new ArrayList<Double>();
                     // Test data
                     currentUser = new UserModel(sex, birthday.toString(), Double.parseDouble(height), Double.parseDouble(weight), activityParser.getActivityDouble(getBaseContext(),activitySponnerInfo.getSelectedItem().toString()), stepsList);
+                    if(auth.getCurrentUser()!=null)
                     database.saveDataForUser(currentUser, auth.getCurrentUser().getUid());
                 }
                 else{
@@ -161,7 +164,7 @@ public class InformationActivity extends AppCompatActivity {
 
                 Intent i = new Intent(InformationActivity.this,CalcActivity.class);
                 i.putExtra(Global.INTENT_CODE_TO_CALCACTIVITY,currentUser);
-                startActivity(i);
+                startActivityForResult(i,Global.REQUESTCODEFROMINFORMATIONTOCALC);
 
 
             }
@@ -203,7 +206,7 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putSerializable(Global.SAVEDINSTANCEUSERMODELOBJECT, database.getRetrivedata());
+        savedInstanceState.putSerializable(Global.SAVEDINSTANCEUSERMODELOBJECT, currentUser);
 
     }
     @Override
@@ -212,18 +215,20 @@ public class InformationActivity extends AppCompatActivity {
         UserModel userModel = new UserModel();
         userModel = (UserModel) savedInstanceState.getSerializable(Global.SAVEDINSTANCEUSERMODELOBJECT);
         updateUI(userModel);
+        database.setRetrivedata(userModel);
 
     }
     public void retriveUserModel(String ID)
     {
         final String _Id =ID;
-        FirebaseDatabase database= FirebaseDatabase.getInstance();
+        final FirebaseDatabase database= FirebaseDatabase.getInstance();
         DatabaseReference childRef = database.getReference(Global.USER_KEY+"/"+ID+"/"+Global.INFORMATION_KEY);
         childRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 UserModel value = dataSnapshot.getValue(UserModel.class);
+                currentUser=value;
                 updateUI(value);
             }
 
@@ -234,6 +239,24 @@ public class InformationActivity extends AppCompatActivity {
         });
 
 
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Global.REQUESTCODEFROMINFORMATIONTOCALC) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bundle b = data.getExtras();
+                if (b != null) {
+                    currentUser = (UserModel) b.getSerializable(Global.INTENTFROMCALCACTIVITY);
+                    updateUI(currentUser);
+                }
+                //onBackPressed();
+            } else if (resultCode == 0) {
+                Toast.makeText(getApplicationContext(), "Had a problem retriving data from CalcActivity", Toast.LENGTH_SHORT).show();
+
+            }
+
+
+        }
     }
 
 }

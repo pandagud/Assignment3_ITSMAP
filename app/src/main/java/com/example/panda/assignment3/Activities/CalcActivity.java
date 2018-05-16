@@ -1,5 +1,6 @@
 package com.example.panda.assignment3.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -75,10 +76,14 @@ public class CalcActivity extends AppCompatActivity {
         btCalcEditUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent InfoIntent = new Intent(CalcActivity.this,InformationActivity.class);
+                /*
+                 Intent InfoIntent = new Intent(CalcActivity.this,InformationActivity.class);
                 InfoIntent.putExtra(Global.INTENT_CODE_TO_INFORMATIONACTIVITY,currentUser);
                 finish();
                 startActivity(InfoIntent);
+                 */
+                onBackPressed();
+
             }
         });
 
@@ -87,6 +92,7 @@ public class CalcActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent LogOffIntent = new Intent(CalcActivity.this, LoginActivity.class);
+                if(auth.getCurrentUser()!=null)
                 auth.signOut();
                 finish();
                 startActivity(LogOffIntent);
@@ -169,5 +175,13 @@ public class CalcActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putSerializable(SAVEINSTANCE_CURRENTUSER_CALC, currentUser);
         Log.d(LOG,"Current user saved");
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra(Global.INTENTFROMCALCACTIVITY, currentUser);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+
     }
 }

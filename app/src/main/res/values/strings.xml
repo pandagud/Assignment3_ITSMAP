@@ -21,6 +21,8 @@
         <item>Ekstremt aktiv</item>
     </string-array>
     <string name="Login">Login</string>
+    <string name="Registrer">Registrer</string>
+    <string name="ForsaetUdenLogin">Forsæt uden Login</string>
     <string name="minimum_password">Koreord for kort, skriv minimum 6 kare</string>
     <string name="MakroNæring">Makronæringsstoffer</string>
     <string name="Kulhydrater">Kulhydrater:</string>
