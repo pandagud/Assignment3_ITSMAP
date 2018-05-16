@@ -33,4 +33,5 @@
     <string name="LogAf">Log Af</string>
     <string name="auth_failed">Godkendelse fejlede, tjek din email og kodeord eller tilmed</string>
     <string name="Aktivitetsniveau">Aktivitits niveau</string>
+    <string name="AppName"><u>Kcal-Calc</u></string>
 </resources>
