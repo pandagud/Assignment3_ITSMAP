@@ -18,6 +18,10 @@
         <activity android:name=".Activities.CreateUserActivity" />
         <activity android:name=".Activities.InformationActivity" />
         <activity android:name=".Activities.CalcActivity"></activity>
+        <service
+            android:name=".Services.Backgroundservice"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

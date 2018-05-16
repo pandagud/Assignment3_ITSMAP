@@ -1,25 +1,22 @@
 package com.example.panda.assignment3.Activities;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.provider.MediaStore;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.example.panda.assignment3.Services.Backgroundservice;
 import com.example.panda.assignment3.Globals.Global;
 import com.example.panda.assignment3.Model.UserModel;
 import com.example.panda.assignment3.R;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.time.Period;
-import java.util.Date;
-import java.util.Calendar;
 
 public class CalcActivity extends AppCompatActivity {
 
@@ -29,7 +26,7 @@ public class CalcActivity extends AppCompatActivity {
     private static final double CARB_INTAKE_PERCENTAGE = 0.5;
     private static final double FAT_INTAKE_PERCENTAGE = 0.2;
     private static final double PROTEIN_INTAKE_PERCENTAGE = 0.3;
-
+    boolean isServiceStopped;
     private double currentCalories = 0;
 
     private TextView twCalCalorieGoal, twCalcCarbs, twCalcFat, twCalcProt, twCalcSteps, twCalcStepsKcal;
@@ -100,6 +97,23 @@ public class CalcActivity extends AppCompatActivity {
         });
         UpdateUI();
     }
+    @Override
+    public void onStart(){
+        super.onStart();
+        startService(new Intent(getBaseContext(), Backgroundservice.class));
+        // register our BroadcastReceiver by passing in an IntentFilter. * identifying the message that is broadcasted by using static string "BROADCAST_ACTION".
+        registerReceiver(broadcastReceiver, new IntentFilter(Backgroundservice.BROADCAST_BACKGROUND_SERVICE_RESULT));
+        isServiceStopped = false;
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(broadcastReceiver);
+        stopService(new Intent(getBaseContext(), Backgroundservice.class));
+        isServiceStopped = true;
+
+    }
+
 
     // Used for managing results from intent call StartActivityForResult()
     @Override
@@ -184,4 +198,22 @@ public class CalcActivity extends AppCompatActivity {
         finish();
 
     }
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            updateStepCounter(intent);
+        }
+
+        private void updateStepCounter(Intent intent) {
+            String countedStep = intent.getStringExtra("Counted_Step");
+            String DetectedStep = intent.getStringExtra("Detected_Step");
+
+            twCalcSteps.setText(countedStep);
+        }
+
+
+    };
+
+
 }
