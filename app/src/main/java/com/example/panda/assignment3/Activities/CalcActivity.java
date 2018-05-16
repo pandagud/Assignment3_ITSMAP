@@ -23,11 +23,12 @@ public class CalcActivity extends AppCompatActivity {
     private static final String SAVEINSTANCE_CURRENTUSER_CALC = "save_currentuser_calc";
     private static final String LOG = "CALC_ACTIVITY";
 
-    private static final double CARB_INTAKE_PERCENTAGE = 0.5;
-    private static final double FAT_INTAKE_PERCENTAGE = 0.2;
+    private static final double CARB_INTAKE_PERCENTAGE = 0.45;
+    private static final double FAT_INTAKE_PERCENTAGE = 0.25;
     private static final double PROTEIN_INTAKE_PERCENTAGE = 0.3;
     boolean isServiceStopped;
-    private double currentCalories = 0;
+
+    private int currentCalories = 0;
 
     private TextView twCalCalorieGoal, twCalcCarbs, twCalcFat, twCalcProt, twCalcSteps, twCalcStepsKcal;
     private Button btCalcEditUser, btCalcLogOff;
@@ -136,12 +137,12 @@ public class CalcActivity extends AppCompatActivity {
     }
 
     // Calculating the calories needed
-    private double CalculateCalories(UserModel userModel){
+    private int CalculateCalories(UserModel userModel){
         if(userModel != null) {
             if (userModel.getSex().equals("male")) {
-                return (10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) + 5);
+                return (int)Math.round((10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) + 5) * userModel.getActivityLevel());
             } else if (userModel.getSex().equals("female")) {
-                return (10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) / 161);
+                return (int)Math.round((10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) / 161) * userModel.getActivityLevel());
             } else {
                 return 0;
             }
@@ -151,34 +152,61 @@ public class CalcActivity extends AppCompatActivity {
     }
 
     // Calculate the age based on the users birthday
+    // All credits goes to https://www.quickprogrammingtips.com/java/how-to-calculate-age-from-date-of-birth-in-java.html for the method.
     private int CalculateAge(String birthDate){
-        //*
-        // Date currentDate = Calendar.getInstance().getTime();
-        return 23;
+        // Get current date
+        Calendar today = Calendar.getInstance();
+
+        // Split string to day, month and year
+        String[] dobsplit = birthDate.split("/");
+
+
+        int curYear = today.get(Calendar.YEAR);
+        int dobYear = Integer.parseInt(dobsplit[2]);
+
+        int age = curYear - dobYear;
+        // if dob is month or day is behind today's month or day
+        // reduce age by 1
+        int curMonth = today.get(Calendar.MONTH)+1;
+        int dobMonth = Integer.parseInt(dobsplit[1]);
+        if (dobMonth > curMonth) { // this year can't be counted!
+            age--;
+        } else if (dobMonth == curMonth) { // same month? check for day
+            int curDay = today.get(Calendar.DAY_OF_MONTH);
+            int dobDay = Integer.parseInt(dobsplit[0]);
+            if (dobDay > curDay) { // this year can't be counted!
+                age--;
+            }
+        }
+        if(age > 0) {
+            return age;
+        } else{
+            return 1;
+        }
     }
 
     // Calculate carb intake
-    private double CalculateCarbs(double calories){
+    private int CalculateCarbs(int calories){
         if(calories != 0) {
-            return (calories * CARB_INTAKE_PERCENTAGE) / 4;
+            return (int)Math.round((calories * CARB_INTAKE_PERCENTAGE) / 4);
         } else{
             return 0;
         }
     }
 
     // Calculate fat intake
-    private double CalculateFat(double calories){
+    private int CalculateFat(int calories){
         if(calories != 0) {
-            return (calories * FAT_INTAKE_PERCENTAGE) / 9;
+            return (int)Math.round((calories * FAT_INTAKE_PERCENTAGE) / 9);
         }else{
             return 0;
         }
     }
 
     // Calculate protein intake
-    private double CalculateProtein(double calories){
+    private double CalculateProtein(int calories){
         if(calories != 0) {
-            return (calories * PROTEIN_INTAKE_PERCENTAGE) / 4;
+            return (int)Math.round((calories * PROTEIN_INTAKE_PERCENTAGE) / 4);
         }else{
             return 0;
         }
@@ -196,7 +224,6 @@ public class CalcActivity extends AppCompatActivity {
         intent.putExtra(Global.INTENTFROMCALCACTIVITY, currentUser);
         setResult(Activity.RESULT_OK, intent);
         finish();
-
     }
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override

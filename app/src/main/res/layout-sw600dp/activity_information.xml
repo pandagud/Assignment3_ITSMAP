@@ -32,35 +32,43 @@
         android:id="@+id/twCalcGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp"
         android:text="@string/Køn"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/rbInfoMan"
+        app:layout_constraintEnd_toStartOf="@+id/radioGroup2"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioButton
-        android:id="@+id/rbInfoMan"
-        android:layout_width="wrap_content"
-        android:layout_height="31dp"
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="265dp"
+        android:layout_height="33dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="@string/Mand"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/twCalcGender"
-        app:layout_constraintEnd_toStartOf="@+id/rbInfoWoman" />
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <RadioButton
-        android:id="@+id/rbInfoWoman"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:text="@string/Kvinde"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/twCalcGender"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <RadioButton
+            android:id="@+id/rbInfoMan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Mand"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/rbInfoWoman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Kvinde"
+            android:textSize="24sp" />
+    </RadioGroup>
+
+
 
     <Button
         android:id="@+id/btInfoContinue"
@@ -103,12 +111,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="date"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rbInfoMan" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
 
     <TextView
         android:id="@+id/twHeight"
