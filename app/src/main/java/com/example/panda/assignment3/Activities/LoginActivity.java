@@ -10,12 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.panda.assignment3.Connection.Network;
+import com.example.panda.assignment3.Globals.Global;
+import com.example.panda.assignment3.Model.UserModel;
 import com.example.panda.assignment3.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.io.Serializable;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText inputEmail, inputPassword;
@@ -32,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btn_login);
 
         auth = FirebaseAuth.getInstance();
+        checkNetwork();
 
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +103,24 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, InformationActivity.class);
             startActivity(intent);
         }
+
+    }
+    private void checkNetwork(){
+        String status = Network.getNetworkStatus(this);
+        Toast.makeText(this, status, Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putSerializable(Global.SAVEDINSTANCEUSERINPUTLOGIN, (Serializable) inputEmail.getText().toString());
+        savedInstanceState.putSerializable(Global.SAVEDINSTANCEUSERINPUTPASSWORD, (Serializable) inputPassword.getText().toString());
+
+    }
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        inputEmail.setText(savedInstanceState.getSerializable(Global.SAVEDINSTANCEUSERINPUTLOGIN).toString());
+        inputPassword.setText(savedInstanceState.getSerializable(Global.SAVEDINSTANCEUSERINPUTPASSWORD).toString());
 
     }
 }
