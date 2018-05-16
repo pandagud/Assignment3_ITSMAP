@@ -22,8 +22,10 @@ public class UserModel implements Serializable {
         this.activityLevel = activityLevel;
         this.stepsList = stepsList;
     }
+
     public UserModel()
     {
+
     }
 
     public ArrayList<Double> getStepsList() {
@@ -39,10 +41,10 @@ public class UserModel implements Serializable {
     }
 
     public void setSex(String sex) {
-        if(sex == "Male" || sex == "Female") {
+        if(sex == "male" || sex == "female") {
             this.sex = sex;
         } else{
-            this.sex = "Male";
+            this.sex = "male";
         }
     }
 
