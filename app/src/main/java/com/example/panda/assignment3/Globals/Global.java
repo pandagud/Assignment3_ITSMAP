@@ -28,6 +28,7 @@ public class Global {
 
     public static final int REQUESTCODEFROMINFORMATIONTOCALC = 10;
     public static final int TIMEOUT_FORBACKGROUNDSERVICE=5000;
+    public static final String SAVEDINSTANCE_INFOACTIVITY_USERMODEL = "savedinstance_infoactivity_usermodel";
 
 
     public static final String INTENT_CODE_TO_CALCACTIVITY = "intent_code_calcactivity";

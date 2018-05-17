@@ -130,7 +130,6 @@ btnContinueNoLogin.setOnClickListener(new View.OnClickListener() {
         super.onRestoreInstanceState(savedInstanceState);
         inputEmail.setText(savedInstanceState.getSerializable(Global.SAVEDINSTANCEUSERINPUTLOGIN).toString());
         inputPassword.setText(savedInstanceState.getSerializable(Global.SAVEDINSTANCEUSERINPUTPASSWORD).toString());
-
     }
 }
 
