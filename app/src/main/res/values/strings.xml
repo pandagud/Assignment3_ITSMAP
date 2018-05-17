@@ -22,8 +22,8 @@
     </string-array>
     <string name="Login">Login</string>
     <string name="Registrer">Registrer</string>
-    <string name="ForsaetUdenLogin">Forsæt uden Login</string>
-    <string name="minimum_password">Koreord for kort, skriv minimum 6 kare</string>
+    <string name="ForsaetUdenLogin">Forsæt uden login</string>
+    <string name="minimum_password">Koreord for kort, skriv minimum 6 karakterer</string>
     <string name="MakroNæring">Makronæringsstoffer</string>
     <string name="Kulhydrater">Kulhydrater:</string>
     <string name="Fedt">Fedt:</string>
@@ -31,7 +31,12 @@
     <string name="DuHarGået">Du har gået:</string>
     <string name="Redigerinfo">Rediger info</string>
     <string name="LogAf">Log Af</string>
-    <string name="auth_failed">Godkendelse fejlede, tjek din email og kodeord eller tilmed</string>
+    <string name="auth_failed">Godkendelse fejlede, tjek din email og kodeord eller tilmed dig</string>
     <string name="Aktivitetsniveau">Aktivitits niveau</string>
-    <string name="AppName"><u>Kcal-Calc</u></string>
+    <string name="AppName" translatable="false"><u>Kcal-Calc</u></string>
+    <string name="EnterWeight">Tilføj Vægt</string>
+    <string name="EnterBirthday">Tilføj fødselsdag</string>
+    <string name="EnterGender">Vælg et køn</string>
+    <string name="ProblemCalcData">Et problem opstod ved hentning af information fra CalcActivity</string>
+    <string name="EnterHeight">Tilføj Højde</string>
 </resources>
