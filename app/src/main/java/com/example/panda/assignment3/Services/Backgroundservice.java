@@ -12,6 +12,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.panda.assignment3.DataBases.Database;
 import com.example.panda.assignment3.Globals.Global;
 
 public class Backgroundservice extends Service implements SensorEventListener{
@@ -31,6 +32,8 @@ public class Backgroundservice extends Service implements SensorEventListener{
     int newStepCounter;
 
     boolean serviceStopped;
+
+    private Database database;
 
     private final Handler bghandler = new Handler();
 
