@@ -173,7 +173,7 @@ public class InformationActivity extends AppCompatActivity {
         etInfoBirthday.setText(data.getBirthday());
         etInfoHeight.setText(String.valueOf(data.getHeight()));
         etInfoWeight.setText(String.valueOf(data.getWeight()));
-        setSpinText(activitySponnerInfo,String.valueOf(data.getActivityLevel()));
+        setSpinText(activitySponnerInfo,String.valueOf(activityParser.getActivityString(this,data.getActivityLevel())));
         setSex(data.getSex());
         Log.d(LOG,"UI updated");
     }
