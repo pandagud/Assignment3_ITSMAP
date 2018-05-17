@@ -17,7 +17,17 @@ public class Global {
     public static final String CONNECT = "networkconnect";
     public static final String SAVEDINSTANCEUSERINPUTLOGIN = "Userinputlogin";
     public static final String SAVEDINSTANCEUSERINPUTPASSWORD = "Userinputpassword";
+    public static final String BACKGROUNDSERVICE = "backgroundservice";
+    public static final String COUNTEDSTEPSINT = "Counted_Step_Int";
+    public static final String COUNTEDSTEPS = "Counted_Step";
+    public static final String DETECTEDSTEPSINT="Detected_Step_Int";
+    public static final String DETECTEDSTEPS="Detected_Step";
+    public static final String STORINGDATALOCAL="SavingDataLocal";
+    public static final String STORINGSTEPSLOCAL="SavingStepsLocal";
+    public static final String STORINGDETECTEDSTEPSLOCAL="SavingDetectedLocal";
+
     public static final int REQUESTCODEFROMINFORMATIONTOCALC = 10;
+    public static final int TIMEOUT_FORBACKGROUNDSERVICE=5000;
 
 
     public static final String INTENT_CODE_TO_CALCACTIVITY = "intent_code_calcactivity";

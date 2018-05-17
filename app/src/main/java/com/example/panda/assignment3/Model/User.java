@@ -1,4 +1,4 @@
-package com.example.panda.assignment3.DataBases;
+package com.example.panda.assignment3.Model;
 
 public class User {
     private String email;

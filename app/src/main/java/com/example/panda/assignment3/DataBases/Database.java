@@ -1,26 +1,27 @@
 package com.example.panda.assignment3.DataBases;
 
-import android.telephony.gsm.GsmCellLocation;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.panda.assignment3.Globals.Global;
+import com.example.panda.assignment3.Model.User;
 import com.example.panda.assignment3.Model.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Database {
+public class Database  {
     FirebaseDatabase database;
     DatabaseReference databaseref;
     private FirebaseAuth dauth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private  UserModel retrivedata;
+    private SharedPreferences sharedPreferences;
 
 
     public Database()
@@ -29,6 +30,7 @@ public class Database {
         database= FirebaseDatabase.getInstance();
         dauth = FirebaseAuth.getInstance();
         databaseref = database.getReference();
+
 
     }
 
@@ -70,5 +72,29 @@ public class Database {
         }
     }
 
+    public void SavingStepCount(String countedSteps, String detectedSteps,Context context)
+    {
+        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(context);
+        Log.d(Global.STORINGDATALOCAL,"Storing steps in shared pref.");
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Global.STORINGSTEPSLOCAL,countedSteps);
+        editor.putString(Global.STORINGDETECTEDSTEPSLOCAL,detectedSteps);
+        editor.commit();
+    }
+    public String RetrievingStepCount(Context context)
+    {
+        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(context);
+        try{
+            String countedSteps = sharedPreferences.getString(Global.STORINGSTEPSLOCAL,"");
+            return countedSteps;
+
+        }
+        catch (Exception e)
+        {
+            Log.d(Global.STORINGDATALOCAL,"No data to retrive");
+            return null;
+
+        }
+    }
 
 }

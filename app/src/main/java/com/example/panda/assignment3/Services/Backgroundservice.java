@@ -1,6 +1,5 @@
 package com.example.panda.assignment3.Services;
 
-import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -13,63 +12,67 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.panda.assignment3.Globals.Global;
+
 public class Backgroundservice extends Service implements SensorEventListener{
 
     // Inspiration from https://github.com/bagilevi/android-pedometer
     public static final String BROADCAST_BACKGROUND_SERVICE_RESULT = "com.example.panda.Assignment3_ITSMAP.Backgroundservice_RESULT";
     private final IBinder backGroundBinder = new BackGroundBind();
 
-    SensorManager sensorManager;
-    Sensor stepCounterSensor;
-    Sensor stepDetectorSensor;
-    Intent backgroundintent;
-    NotificationManager notificationManager;
+    SensorManager sManager;
+    Sensor sStepCounter;
+    Sensor sStepDetector;
+    Intent bgIntent;
 
-    int currentStepsDetected;
+    int curStepDetector;
 
-    int stepCounter;
+    int curStepCounter;
     int newStepCounter;
 
     boolean serviceStopped;
 
-    private final Handler handler = new Handler();
+    private final Handler bghandler = new Handler();
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-        sensorManager.registerListener(this, stepCounterSensor, 0);
-        sensorManager.registerListener(this, stepDetectorSensor, 0);
+        // Inspiration from https://github.com/bagilevi/android-pedometer
+        sManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sStepCounter = sManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        sStepDetector = sManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+        sManager.registerListener(this, sStepCounter, 0);
+        sManager.registerListener(this, sStepDetector, 0);
+        // Inspiration from https://github.com/bagilevi/android-pedometer
+        initializeValues();
 
-        //currentStepCount = 0;
-        currentStepsDetected = 0;
-        stepCounter = 0;
+        bghandler.removeCallbacks(BroadCastData);
+
+        bghandler.post(BroadCastData);
+
+        return START_STICKY;
+    }
+    public void initializeValues()
+    {
+        curStepDetector = 0;
+        curStepCounter = 0;
         newStepCounter = 0;
 
         serviceStopped = false;
 
-
-        handler.removeCallbacks(updateBroadcastData);
-
-        handler.post(updateBroadcastData);
-
-        return START_STICKY;
     }
     @Override
     public void onCreate() {
         super.onCreate();
-
-        backgroundintent = new Intent(BROADCAST_BACKGROUND_SERVICE_RESULT);
+        bgIntent = new Intent(BROADCAST_BACKGROUND_SERVICE_RESULT);
 
     }
 
-    private Runnable updateBroadcastData = new Runnable() {
+    private Runnable BroadCastData = new Runnable() {
         public void run() {
             if (!serviceStopped) {
-                broadcastSensorValue();
+                broadcastStepCounterValue();
 
-                handler.postDelayed(this, 5000);
+                bghandler.postDelayed(this, Global.TIMEOUT_FORBACKGROUNDSERVICE);
             }
         }
     };
@@ -80,16 +83,16 @@ public class Backgroundservice extends Service implements SensorEventListener{
 
 
 
-            if (stepCounter == 0) {
-                stepCounter = (int) event.values[0];
+            if (curStepCounter == 0) {
+                curStepCounter = (int) event.values[0];
             }
-            newStepCounter = countSteps - stepCounter;
+            newStepCounter = countSteps - curStepCounter;
         }
 
 
         if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
             int detectSteps = (int) event.values[0];
-            currentStepsDetected += detectSteps;
+            curStepDetector += detectSteps;
         }
     }
 
@@ -97,16 +100,16 @@ public class Backgroundservice extends Service implements SensorEventListener{
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
-    private void broadcastSensorValue() {
-        Log.d("test", "Data to Activity");
+    private void broadcastStepCounterValue() {
+        Log.d(Global.BACKGROUNDSERVICE, "Broadcasting step counter values");
+        // Inspiration from https://github.com/bagilevi/android-pedometer
+        bgIntent.putExtra(Global.COUNTEDSTEPSINT, newStepCounter);
+        bgIntent.putExtra(Global.COUNTEDSTEPS, String.valueOf(newStepCounter));
 
-        backgroundintent.putExtra("Counted_Step_Int", newStepCounter);
-        backgroundintent.putExtra("Counted_Step", String.valueOf(newStepCounter));
-
-        backgroundintent.putExtra("Detected_Step_Int", currentStepsDetected);
-        backgroundintent.putExtra("Detected_Step", String.valueOf(currentStepsDetected));
-
-        sendBroadcast(backgroundintent);
+        bgIntent.putExtra(Global.DETECTEDSTEPSINT, curStepDetector);
+        bgIntent.putExtra(Global.DETECTEDSTEPS, String.valueOf(curStepDetector));
+        // Inspiration from https://github.com/bagilevi/android-pedometer
+        sendBroadcast(bgIntent);
     }
     public class BackGroundBind extends Binder {
         public Backgroundservice getService() {
@@ -117,14 +120,13 @@ public class Backgroundservice extends Service implements SensorEventListener{
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return backGroundBinder;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.v("Service", "Stop");
-
+        Log.v(Global.BACKGROUNDSERVICE, "Stop");
         serviceStopped = true;
 
     }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.panda.assignment3.DataBases.Database;
 import com.example.panda.assignment3.Services.Backgroundservice;
 import com.example.panda.assignment3.Globals.Global;
 import com.example.panda.assignment3.Model.UserModel;
@@ -37,6 +38,10 @@ public class CalcActivity extends AppCompatActivity {
     private UserModel currentUser;
     Bundle intentBundle;
     private FirebaseAuth auth;
+    private Database database;
+
+    String countedStep;
+    String DetectedStep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,7 @@ public class CalcActivity extends AppCompatActivity {
         twCalcStepsKcal = findViewById(R.id.twCalcStepsKCal);
 
         auth = FirebaseAuth.getInstance();
+        database = new Database();
 
         // Get information from intent
          intentBundle = getIntent().getExtras();
@@ -76,12 +82,6 @@ public class CalcActivity extends AppCompatActivity {
         btCalcEditUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                 Intent InfoIntent = new Intent(CalcActivity.this,InformationActivity.class);
-                InfoIntent.putExtra(Global.INTENT_CODE_TO_INFORMATIONACTIVITY,currentUser);
-                finish();
-                startActivity(InfoIntent);
-                 */
                 onBackPressed();
 
             }
@@ -99,6 +99,7 @@ public class CalcActivity extends AppCompatActivity {
             }
         });
         UpdateUI();
+        updateStepCounterFromSharedPref();
     }
     @Override
     public void onStart(){
@@ -235,14 +236,26 @@ public class CalcActivity extends AppCompatActivity {
         }
 
         private void updateStepCounter(Intent intent) {
-            String countedStep = intent.getStringExtra("Counted_Step");
-            String DetectedStep = intent.getStringExtra("Detected_Step");
-
+            countedStep = intent.getStringExtra(Global.COUNTEDSTEPS);
+            DetectedStep = intent.getStringExtra(Global.DETECTEDSTEPS);
+            database.SavingStepCount(countedStep,DetectedStep,getApplicationContext());
             twCalcSteps.setText(countedStep);
         }
 
 
     };
+    public void updateStepCounterFromSharedPref()
+    {
+        try
+        {
+            twCalcSteps.setText(database.RetrievingStepCount(getApplicationContext()));
+        }
+        catch (Exception e)
+        {
+            Log.d(Global.STORINGDATALOCAL,"No steps saved");
+        }
+
+    }
 
 
 }

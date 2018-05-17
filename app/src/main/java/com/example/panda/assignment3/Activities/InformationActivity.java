@@ -16,7 +16,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.panda.assignment3.DataBases.Database;
-import com.example.panda.assignment3.DataBases.User;
 import com.example.panda.assignment3.Globals.ActivityParser;
 import com.example.panda.assignment3.Globals.Global;
 import com.example.panda.assignment3.Model.UserModel;
@@ -142,10 +141,8 @@ public class InformationActivity extends AppCompatActivity {
                     sex="female";
                 }
                 if(currentUser==null) {
-                    // Test data
-                    ArrayList<Double> stepsList = new ArrayList<Double>();
-                    // Test data
-                    currentUser = new UserModel(sex, birthday.toString(), Double.parseDouble(height), Double.parseDouble(weight), activityParser.getActivityDouble(getBaseContext(),activitySponnerInfo.getSelectedItem().toString()), stepsList);
+
+                    currentUser = new UserModel(sex, birthday.toString(), Double.parseDouble(height), Double.parseDouble(weight), activityParser.getActivityDouble(getBaseContext(),activitySponnerInfo.getSelectedItem().toString()));
                     if(auth.getCurrentUser()!=null)
                     database.saveDataForUser(currentUser, auth.getCurrentUser().getUid());
                 }
@@ -158,7 +155,7 @@ public class InformationActivity extends AppCompatActivity {
                     currentUser.setHeight(Double.parseDouble(height));
                     currentUser.setWeight(Double.parseDouble(weight));
                     currentUser.setActivityLevel(activityParser.getActivityDouble(getBaseContext(),activitySponnerInfo.getSelectedItem().toString()));
-                    currentUser.setStepsList(stepsList);
+
 
                 }
 
@@ -214,8 +211,12 @@ public class InformationActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         UserModel userModel = new UserModel();
         userModel = (UserModel) savedInstanceState.getSerializable(Global.SAVEDINSTANCEUSERMODELOBJECT);
-        updateUI(userModel);
-        database.setRetrivedata(userModel);
+        if(userModel!=null)
+        {
+            updateUI(userModel);
+            database.setRetrivedata(userModel);
+        }
+
 
     }
     public void retriveUserModel(String ID)

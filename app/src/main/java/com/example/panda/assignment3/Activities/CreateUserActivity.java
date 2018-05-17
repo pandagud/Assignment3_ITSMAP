@@ -16,7 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.panda.assignment3.DataBases.Database;
-import com.example.panda.assignment3.DataBases.User;
+import com.example.panda.assignment3.Model.User;
 import com.example.panda.assignment3.Globals.ActivityParser;
 import com.example.panda.assignment3.Model.UserModel;
 import com.example.panda.assignment3.R;
@@ -198,10 +198,8 @@ public class CreateUserActivity extends AppCompatActivity {
         {
             sex="female";
         }
-        // Test data
-        ArrayList<Double> stepsList = new ArrayList<Double>();
-        // Test data
-        currentUserModel = new UserModel(sex, birthday.toString(), Double.parseDouble(height), Double.parseDouble(weight), activityParser.getActivityDouble(getBaseContext(),activitySpinner.getSelectedItem().toString()), stepsList);
+
+        currentUserModel = new UserModel(sex, birthday.toString(), Double.parseDouble(height), Double.parseDouble(weight), activityParser.getActivityDouble(getBaseContext(),activitySpinner.getSelectedItem().toString()));
         database.saveDataForUser(currentUserModel, auth.getCurrentUser().getUid());
     }
 }

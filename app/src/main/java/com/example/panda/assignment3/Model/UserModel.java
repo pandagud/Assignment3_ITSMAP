@@ -12,15 +12,14 @@ public class UserModel implements Serializable {
     private double height;
     private double weight;
     private double activityLevel;
-    private ArrayList<Double> stepsList;
 
-    public UserModel(String sex, String birthday, double height, double weight, double activityLevel, ArrayList<Double> stepsList) {
+    public UserModel(String sex, String birthday, double height, double weight, double activityLevel) {
         this.sex = sex;
         this.birthday = birthday;
         this.height = height;
         this.weight = weight;
         this.activityLevel = activityLevel;
-        this.stepsList = stepsList;
+
     }
 
     public UserModel()
@@ -28,13 +27,7 @@ public class UserModel implements Serializable {
 
     }
 
-    public ArrayList<Double> getStepsList() {
-        return stepsList;
-    }
 
-    public void setStepsList(ArrayList<Double> stepsList) {
-        this.stepsList = stepsList;
-    }
 
     public String getSex() {
         return sex;
