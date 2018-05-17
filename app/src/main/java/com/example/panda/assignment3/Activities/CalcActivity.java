@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.example.panda.assignment3.Model.UserModel;
 import com.example.panda.assignment3.R;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.time.Period;
 import java.util.Calendar;
 
 public class CalcActivity extends AppCompatActivity {
@@ -29,6 +31,8 @@ public class CalcActivity extends AppCompatActivity {
     private static final double CARB_INTAKE_PERCENTAGE = 0.45;
     private static final double FAT_INTAKE_PERCENTAGE = 0.25;
     private static final double PROTEIN_INTAKE_PERCENTAGE = 0.3;
+    private static final double STEPS_TO_CALORIES = 0.05;
+
     boolean isServiceStopped;
 
     private int currentCalories = 0;
@@ -42,6 +46,7 @@ public class CalcActivity extends AppCompatActivity {
 
     String countedStep;
     String DetectedStep;
+    Integer countedStepsInt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +103,10 @@ public class CalcActivity extends AppCompatActivity {
                 startActivity(LogOffIntent);
             }
         });
+
+        //Get steps from sharedPreferences here
+        //countedStepsInt = getSharedPreferences(Global.STORINGSTEPSLOCAL,)
+
         UpdateUI();
         updateStepCounterFromSharedPref();
     }
@@ -143,9 +152,9 @@ public class CalcActivity extends AppCompatActivity {
     private int CalculateCalories(UserModel userModel){
         if(userModel != null) {
             if (userModel.getSex().equals("male")) {
-                return (int)Math.round((10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) + 5) * userModel.getActivityLevel());
+                return (int)Math.round((10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) + 5) * userModel.getActivityLevel()- countedStepsInt*STEPS_TO_CALORIES);
             } else if (userModel.getSex().equals("female")) {
-                return (int)Math.round((10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) / 161) * userModel.getActivityLevel());
+                return (int)Math.round((10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) / 161) * userModel.getActivityLevel() - countedStepsInt*STEPS_TO_CALORIES);
             } else {
                 return 0;
             }
@@ -168,16 +177,15 @@ public class CalcActivity extends AppCompatActivity {
         int dobYear = Integer.parseInt(dobsplit[2]);
 
         int age = curYear - dobYear;
-        // if dob is month or day is behind today's month or day
-        // reduce age by 1
+        // If the month or day of dob is behind today's month or day reduce age by 1
         int curMonth = today.get(Calendar.MONTH)+1;
         int dobMonth = Integer.parseInt(dobsplit[1]);
-        if (dobMonth > curMonth) { // this year can't be counted!
+        if (dobMonth > curMonth) {
             age--;
-        } else if (dobMonth == curMonth) { // same month? check for day
+        } else if (dobMonth == curMonth) { // If the month is the same, check for day
             int curDay = today.get(Calendar.DAY_OF_MONTH);
             int dobDay = Integer.parseInt(dobsplit[0]);
-            if (dobDay > curDay) { // this year can't be counted!
+            if (dobDay > curDay) {
                 age--;
             }
         }
@@ -241,7 +249,6 @@ public class CalcActivity extends AppCompatActivity {
             database.SavingStepCount(countedStep,DetectedStep,getApplicationContext());
             twCalcSteps.setText(countedStep);
         }
-
 
     };
     public void updateStepCounterFromSharedPref()
