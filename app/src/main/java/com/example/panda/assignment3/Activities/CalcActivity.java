@@ -151,6 +151,7 @@ public class CalcActivity extends AppCompatActivity {
             twCalcCarbs.setText(CalculateCarbs(currentCalories) + " g");
             twCalcFat.setText(CalculateFat(currentCalories) + " g");
             twCalcProt.setText(CalculateProtein(currentCalories) + " g");
+            twCalcSteps.setText("");
             twCalcStepsKcal.setText("");
             Log.d(LOG,"UI Updated");
         }
