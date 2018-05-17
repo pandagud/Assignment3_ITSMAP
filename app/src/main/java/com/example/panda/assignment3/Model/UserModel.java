@@ -1,5 +1,7 @@
 package com.example.panda.assignment3.Model;
 
+import com.example.panda.assignment3.Globals.Global;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,10 +36,10 @@ public class UserModel implements Serializable {
     }
 
     public void setSex(String sex) {
-        if(sex == "male" || sex == "female") {
+        if(sex == Global.MALE || sex == Global.FEMALE) {
             this.sex = sex;
         } else{
-            this.sex = "male";
+            this.sex = Global.MALE;
         }
     }
 

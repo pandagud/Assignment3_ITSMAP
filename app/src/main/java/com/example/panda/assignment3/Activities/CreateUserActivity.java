@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.panda.assignment3.DataBases.Database;
+import com.example.panda.assignment3.Globals.Global;
 import com.example.panda.assignment3.Model.User;
 import com.example.panda.assignment3.Globals.ActivityParser;
 import com.example.panda.assignment3.Model.UserModel;
@@ -195,11 +196,11 @@ public class CreateUserActivity extends AppCompatActivity {
         }
         if(rbMan.isChecked())
         {
-            sex="male";
+            sex= Global.MALE;
         }
         else if(rbWoman.isChecked())
         {
-            sex="female";
+            sex=Global.FEMALE;
         }
 
         currentUserModel = new UserModel(sex, birthday.toString(), Double.parseDouble(height), Double.parseDouble(weight), activityParser.getActivityDouble(getBaseContext(),activitySpinner.getSelectedItem().toString()));

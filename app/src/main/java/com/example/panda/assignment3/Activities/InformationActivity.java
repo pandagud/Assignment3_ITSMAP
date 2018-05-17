@@ -101,11 +101,9 @@ public class InformationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
-
-
-
             }
         });
+
         btInfoCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,11 +133,11 @@ public class InformationActivity extends AppCompatActivity {
                 }
                 if(rbInfoMan.isChecked())
                 {
-                    sex="male";
+                    sex=Global.MALE;
                 }
                 else if(rbInfoWoman.isChecked())
                 {
-                    sex="female";
+                    sex=Global.FEMALE;
                 }
                 if(currentUser==null) {
 
@@ -198,9 +196,9 @@ public class InformationActivity extends AppCompatActivity {
     }
     public void setSex(String text)
     {
-        if(text=="male")
+        if(text==Global.MALE)
             rbInfoMan.setChecked(true);
-        else
+        else if(text == Global.FEMALE)
         {
             rbInfoWoman.setChecked(true);
         }
@@ -215,13 +213,14 @@ public class InformationActivity extends AppCompatActivity {
             savedUM.setBirthday(etInfoBirthday.getText().toString());
             savedUM.setHeight(Double.parseDouble(etInfoHeight.getText().toString()));
             savedUM.setWeight(Double.parseDouble(etInfoWeight.getText().toString()));
-            if(rbInfoMan.isChecked()) {
-                savedUM.setSex("male");
-            } else if(rbInfoWoman.isChecked()){
-                savedUM.setSex("female");
+            if(rbInfoMan.isChecked() == true) {
+                savedUM.setSex(Global.MALE);
+            } else if(rbInfoWoman.isChecked() == true){
+                savedUM.setSex(Global.FEMALE);
             }
             savedUM.setActivityLevel(activityParser.getActivityDouble(getBaseContext(),activitySponnerInfo.getSelectedItem().toString()));
             savedInstanceState.putSerializable(Global.SAVEDINSTANCE_INFOACTIVITY_USERMODEL,savedUM);
+            database.saveDataForUser(currentUser, auth.getCurrentUser().getUid());
             Log.d(LOG,"Saved the instance");
         }
         catch (Exception e)
@@ -233,8 +232,7 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        UserModel userModel = new UserModel();
-        userModel = (UserModel) savedInstanceState.getSerializable(Global.SAVEDINSTANCEUSERMODELOBJECT);
+        UserModel userModel = (UserModel) savedInstanceState.getSerializable(Global.SAVEDINSTANCE_INFOACTIVITY_USERMODEL);
         if(userModel!=null)
         {
             updateUI(userModel);
@@ -277,7 +275,6 @@ public class InformationActivity extends AppCompatActivity {
                 {
                     Log.d(Global.DATABASELOG,"nothing stored in database");
                 }
-
             }
 
             @Override
@@ -297,13 +294,9 @@ public class InformationActivity extends AppCompatActivity {
                     currentUser = (UserModel) b.getSerializable(Global.INTENTFROMCALCACTIVITY);
                     updateUI(currentUser);
                 }
-
             } else if (resultCode == 0) {
                 Toast.makeText(getApplicationContext(), R.string.ProblemCalcData, Toast.LENGTH_SHORT).show();
-
             }
-
-
         }
     }
 

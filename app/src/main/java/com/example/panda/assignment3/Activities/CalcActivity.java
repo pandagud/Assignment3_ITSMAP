@@ -161,9 +161,9 @@ public class CalcActivity extends AppCompatActivity {
     // Calculating the calories needed
     private int CalculateCalories(UserModel userModel){
         if(userModel != null) {
-            if (userModel.getSex().equals("male")) {
+            if (userModel.getSex().equals(Global.MALE)) {
                 return (int)Math.round((10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) + 5) * userModel.getActivityLevel()- countedStepsInt*STEPS_TO_CALORIES);
-            } else if (userModel.getSex().equals("female")) {
+            } else if (userModel.getSex().equals(Global.FEMALE)) {
                 return (int)Math.round((10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) / 161) * userModel.getActivityLevel() - countedStepsInt*STEPS_TO_CALORIES);
             } else {
                 return 0;

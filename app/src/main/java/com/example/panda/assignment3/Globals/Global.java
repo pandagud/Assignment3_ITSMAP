@@ -31,6 +31,9 @@ public class Global {
     public static final String STORINGYEARLOCAL="SavingYearLocal";
 
 
+    public static final String MALE = "male";
+    public static final String FEMALE = "female";
+
     public static Boolean RESETSTEPS = false;
     public static final int REQUESTCODEFROMINFORMATIONTOCALC = 10;
     public static final int TIMEOUT_FORBACKGROUNDSERVICE=5000;
