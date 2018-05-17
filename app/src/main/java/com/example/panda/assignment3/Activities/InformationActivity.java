@@ -117,21 +117,21 @@ public class InformationActivity extends AppCompatActivity {
 
 
                 if (TextUtils.isEmpty(height)) {
-                    Toast.makeText(getApplicationContext(), "Enter Height!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),R.string.EnterHeight , Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(weight)) {
-                    Toast.makeText(getApplicationContext(), "Enter weight!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.EnterWeight, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(birthday)) {
-                    Toast.makeText(getApplicationContext(), "Enter Birthday!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.EnterBirthday, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(!rbInfoMan.isChecked()&&!rbInfoWoman.isChecked())
                 {
-                    Toast.makeText(getApplicationContext(), "Pick a gender!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.EnterGender, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(rbInfoMan.isChecked())
@@ -294,7 +294,7 @@ public class InformationActivity extends AppCompatActivity {
                 }
                 //onBackPressed();
             } else if (resultCode == 0) {
-                Toast.makeText(getApplicationContext(), "Had a problem retriving data from CalcActivity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.ProblemCalcData, Toast.LENGTH_SHORT).show();
 
             }
 
