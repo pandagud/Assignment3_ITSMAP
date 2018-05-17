@@ -44,7 +44,7 @@ public class CalcActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private Database database;
 
-    String countedStep;
+    int countedStep;
     String DetectedStep;
     Integer countedStepsInt;
 
@@ -244,10 +244,15 @@ public class CalcActivity extends AppCompatActivity {
         }
 
         private void updateStepCounter(Intent intent) {
-            countedStep = intent.getStringExtra(Global.COUNTEDSTEPS);
+            countedStep = intent.getIntExtra(Global.COUNTEDSTEPSINT,0);
             DetectedStep = intent.getStringExtra(Global.DETECTEDSTEPS);
-            database.SavingStepCount(countedStep,DetectedStep,getApplicationContext());
-            twCalcSteps.setText(countedStep);
+            database.SavingStepCount(String.valueOf(countedStep),DetectedStep,getApplicationContext());
+            if(Global.RESETSTEPS==true)
+            {
+                countedStep=0;
+                Global.RESETSTEPS=false;
+            }
+            twCalcSteps.setText(String.valueOf(countedStep));
         }
 
     };

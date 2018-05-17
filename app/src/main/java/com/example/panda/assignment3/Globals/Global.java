@@ -25,7 +25,12 @@ public class Global {
     public static final String STORINGDATALOCAL="SavingDataLocal";
     public static final String STORINGSTEPSLOCAL="SavingStepsLocal";
     public static final String STORINGDETECTEDSTEPSLOCAL="SavingDetectedLocal";
+    public static final String STORINGDAYLOCAL="SavingDaYLocal";
+    public static final String STORINGMONTHLOCAL="SavingMonthLocal";
+    public static final String STORINGYEARLOCAL="SavingYearLocal";
 
+
+    public static Boolean RESETSTEPS = false;
     public static final int REQUESTCODEFROMINFORMATIONTOCALC = 10;
     public static final int TIMEOUT_FORBACKGROUNDSERVICE=5000;
     public static final String SAVEDINSTANCE_INFOACTIVITY_USERMODEL = "savedinstance_infoactivity_usermodel";
