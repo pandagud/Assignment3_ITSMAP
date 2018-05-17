@@ -225,8 +225,6 @@ public class InformationActivity extends AppCompatActivity {
             database.setRetrivedata(userModel);
         }
 
-
-        UserModel userModel = (UserModel) savedInstanceState.getSerializable(Global.SAVEDINSTANCEUSERMODELOBJECT);
         UserModel currentInfoModel = (UserModel) savedInstanceState.getSerializable(Global.SAVEDINSTANCE_INFOACTIVITY_USERMODEL);
         updateUI(currentInfoModel);
         database.setRetrivedata(currentInfoModel);
