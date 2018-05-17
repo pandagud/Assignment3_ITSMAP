@@ -100,9 +100,8 @@ public class InformationActivity extends AppCompatActivity {
         btInfoCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                auth.signOut();
-                finish();
-                startActivity(new Intent(InformationActivity.this, LoginActivity.class));
+                onBackPressed();
+
 
 
             }
@@ -157,7 +156,8 @@ public class InformationActivity extends AppCompatActivity {
                     currentUser.setHeight(Double.parseDouble(height));
                     currentUser.setWeight(Double.parseDouble(weight));
                     currentUser.setActivityLevel(activityParser.getActivityDouble(getBaseContext(),activitySponnerInfo.getSelectedItem().toString()));
-
+                    if(auth.getCurrentUser()!=null)
+                        database.saveDataForUser(currentUser, auth.getCurrentUser().getUid());
 
                 }
 
@@ -167,7 +167,12 @@ public class InformationActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        auth.signOut();
+        finish();
 
+    }
     public void updateUI(UserModel data)
     {
         etInfoBirthday.setText(data.getBirthday());
@@ -292,7 +297,7 @@ public class InformationActivity extends AppCompatActivity {
                     currentUser = (UserModel) b.getSerializable(Global.INTENTFROMCALCACTIVITY);
                     updateUI(currentUser);
                 }
-                //onBackPressed();
+
             } else if (resultCode == 0) {
                 Toast.makeText(getApplicationContext(), R.string.ProblemCalcData, Toast.LENGTH_SHORT).show();
 

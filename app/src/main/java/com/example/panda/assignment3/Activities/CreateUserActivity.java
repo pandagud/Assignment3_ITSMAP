@@ -154,11 +154,12 @@ public class CreateUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(CreateUserActivity.this, LoginActivity.class));
+
 
             }
         });
     }
+
     public User setUserData(User userData,String password,String Email,String ID)
     {
         if(userData==null)

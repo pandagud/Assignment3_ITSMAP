@@ -13,6 +13,7 @@ public class Global {
     public static final String INFORMATION_KEY = "Information";
     public static final String DATABASELOG = "DatabaseLOG";
     public static final String SAVEDINSTANCEUSERMODELOBJECT = "UsermodelObject";
+    public static final String SAVEDINSTANCESTEPS = "SavedSteps";
     public static final String INTENTFROMCALCACTIVITY = "Intentfromcalc";
     public static final String CONNECT = "networkconnect";
     public static final String SAVEDINSTANCEUSERINPUTLOGIN = "Userinputlogin";

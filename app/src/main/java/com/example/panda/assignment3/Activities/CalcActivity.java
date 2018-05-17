@@ -237,8 +237,19 @@ public class CalcActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(SAVEINSTANCE_CURRENTUSER_CALC, currentUser);
+        outState.putSerializable(Global.SAVEDINSTANCESTEPS,countedStep);
         Log.d(LOG,"Current user saved");
     }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String test = String.valueOf(savedInstanceState.getSerializable(Global.SAVEDINSTANCESTEPS));
+        twCalcSteps.setText(String.valueOf(savedInstanceState.getSerializable(Global.SAVEDINSTANCESTEPS)));
+        currentUser = (UserModel) savedInstanceState.getSerializable(SAVEINSTANCE_CURRENTUSER_CALC);
+        UpdateUI();
+    }
+
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
