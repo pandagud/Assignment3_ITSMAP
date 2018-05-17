@@ -101,7 +101,9 @@ public class InformationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 auth.signOut();
+                finish();
                 startActivity(new Intent(InformationActivity.this, LoginActivity.class));
+
 
             }
         });
@@ -115,16 +117,16 @@ public class InformationActivity extends AppCompatActivity {
 
 
                 if (TextUtils.isEmpty(height)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter Height!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(weight)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter weight!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(birthday)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter Birthday!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(!rbInfoMan.isChecked()&&!rbInfoWoman.isChecked())
@@ -181,6 +183,7 @@ public class InformationActivity extends AppCompatActivity {
     {
         for(int i= 0; i < spin.getAdapter().getCount(); i++)
         {
+            String test = spin.getAdapter().getItem(i).toString();
             if(spin.getAdapter().getItem(i).toString().contains(text))
             {
                 spin.setSelection(i);
@@ -201,18 +204,26 @@ public class InformationActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putSerializable(Global.SAVEDINSTANCEUSERMODELOBJECT, currentUser);
-        UserModel savedUM = new UserModel();
-        savedUM.setBirthday(etInfoBirthday.getText().toString());
-        savedUM.setHeight(Double.parseDouble(etInfoHeight.getText().toString()));
-        savedUM.setWeight(Double.parseDouble(etInfoWeight.getText().toString()));
-        if(rbInfoMan.isChecked()) {
-            savedUM.setSex("male");
-        } else if(rbInfoWoman.isChecked()){
-            savedUM.setSex("female");
+        try
+        {
+            UserModel savedUM = new UserModel();
+            savedUM.setBirthday(etInfoBirthday.getText().toString());
+            savedUM.setHeight(Double.parseDouble(etInfoHeight.getText().toString()));
+            savedUM.setWeight(Double.parseDouble(etInfoWeight.getText().toString()));
+            if(rbInfoMan.isChecked()) {
+                savedUM.setSex("male");
+            } else if(rbInfoWoman.isChecked()){
+                savedUM.setSex("female");
+            }
+            savedUM.setActivityLevel(activityParser.getActivityDouble(getBaseContext(),activitySponnerInfo.getSelectedItem().toString()));
+            savedInstanceState.putSerializable(Global.SAVEDINSTANCE_INFOACTIVITY_USERMODEL,savedUM);
+            Log.d(LOG,"Saved the instance");
         }
-        savedUM.setActivityLevel(activityParser.getActivityDouble(getBaseContext(),activitySponnerInfo.getSelectedItem().toString()));
-        savedInstanceState.putSerializable(Global.SAVEDINSTANCE_INFOACTIVITY_USERMODEL,savedUM);
-        Log.d(LOG,"Saved the instance");
+        catch (Exception e)
+        {
+            Log.d(LOG,"unable to setHeight and Weight"+ e.toString());
+        }
+
     }
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -225,9 +236,20 @@ public class InformationActivity extends AppCompatActivity {
             database.setRetrivedata(userModel);
         }
 
-        UserModel currentInfoModel = (UserModel) savedInstanceState.getSerializable(Global.SAVEDINSTANCE_INFOACTIVITY_USERMODEL);
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+
+        }
+        /*
+         UserModel currentInfoModel = (UserModel) savedInstanceState.getSerializable(Global.SAVEDINSTANCE_INFOACTIVITY_USERMODEL);
         updateUI(currentInfoModel);
         database.setRetrivedata(currentInfoModel);
+         */
+
         Log.d(LOG,"Restored the instance");
     }
     public void retriveUserModel(String ID)
