@@ -1,6 +1,7 @@
 package com.example.panda.assignment3.Model;
 
 public class User {
+    // User to store Email and Password to Firebase.
     private String email;
     private String password;
     private String ID;

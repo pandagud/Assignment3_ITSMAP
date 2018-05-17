@@ -276,6 +276,13 @@ public class CalcActivity extends AppCompatActivity {
         }
 
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        database.SavingStepCount(String.valueOf(countedStep),DetectedStep,getApplicationContext());
+    }
+
     public void updateStepCounterFromSharedPref()
     {
         try

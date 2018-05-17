@@ -34,7 +34,6 @@ public class CreateUserActivity extends AppCompatActivity {
     private EditText etUsername, etPassword, etRepeatPassword, etBirthday, etHeight, etWeight;
     private RadioButton rbMan, rbWoman;
     private Button btCreateUserCancel, btCreateUserCreate;
-    private Spinner activitySponnerCreateUser;
     private FirebaseAuth auth;
     private Database database;
     private User currentUser;
@@ -49,6 +48,7 @@ public class CreateUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createuser);
+        // initialize objects
         btCreateUserCreate = findViewById(R.id.btCreateUserCreate);
         btCreateUserCancel = findViewById(R.id.btCreateUserCancel);
 
@@ -75,13 +75,14 @@ public class CreateUserActivity extends AppCompatActivity {
         etBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // initialize objects
                 Calendar calender = Calendar.getInstance();
                 int year  = calender.get(Calendar.YEAR);
                 int month = calender.get(Calendar.MONTH);
                 int day = calender.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(CreateUserActivity.this,R.style.Theme_AppCompat_DialogWhenLarge,mDatasetListener,year,month,day);
-                //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
                 dialog.show();
             }
         });
@@ -102,11 +103,11 @@ public class CreateUserActivity extends AppCompatActivity {
         btCreateUserCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // initialize objects
                 final String email = etUsername.getText().toString().trim();
                 final String password = etPassword.getText().toString().trim();
                 String repeatPassword= etRepeatPassword.getText().toString().trim();
-
+                // Checking values.
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;
@@ -128,7 +129,7 @@ public class CreateUserActivity extends AppCompatActivity {
                     return;
                 }
 
-
+                // creating user with email and password.
                 auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(CreateUserActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -155,8 +156,6 @@ public class CreateUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-
-
             }
         });
     }
@@ -172,10 +171,12 @@ public class CreateUserActivity extends AppCompatActivity {
     }
     public void CheckIfUserHasData()
     {
+        // initialize objects
         final String height = etHeight.getText().toString().trim();
         final String weight = etWeight.getText().toString().trim();
         String birthday= etBirthday.getText().toString().trim();
         String sex = "";
+        // Checking values.
         if (TextUtils.isEmpty(height)) {
             Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
             return;

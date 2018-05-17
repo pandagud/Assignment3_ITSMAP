@@ -8,8 +8,10 @@ import android.util.Log;
 import com.example.panda.assignment3.Globals.Global;
 
 public class Network {
+    // Gat inspiration from Casper, WeatherServiceDEMO
     public static String getNetworkStatus(Context c)
     {
+        // Checking if phone has connection to internet.
         ConnectivityManager connect = (ConnectivityManager)c.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info =connect.getActiveNetworkInfo();
         if(info!=null && info.isConnected())

@@ -8,7 +8,7 @@ import java.util.Date;
 
 
 public class UserModel implements Serializable {
-
+    // Usermodel to store Information about user.
     private String sex;
     private String birthday;
     private double height;

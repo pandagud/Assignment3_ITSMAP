@@ -30,7 +30,7 @@ public class Database  {
 
     public Database()
     {
-
+        // initialize objects
         database= FirebaseDatabase.getInstance();
         dauth = FirebaseAuth.getInstance();
         databaseref = database.getReference();
@@ -41,12 +41,14 @@ public class Database  {
 
     public void writeNewUser(User userdata)
     {
+        // Saving Userdata to Database.
        databaseref = database.getReference(Global.USER_KEY+"/"+userdata.getID());
         databaseref.setValue(hashMapUser(userdata));
 
     }
     public Map<String,String > hashMapUser(User userdata)
     {
+        //Maping values to store in database.
         Map<String,String> userData = new HashMap<String,String>();
         userData.put(Global.EMAIL_KEY,userdata.getEmail());
         userData.put(Global.PASSWORD_KEY,userdata.getPassword());
@@ -54,11 +56,12 @@ public class Database  {
     }
     public void saveDataForUser(UserModel usermodeldata,String ID)
     {
-
+        // Saving data information to database.
         DatabaseReference childRef = database.getReference(Global.USER_KEY+"/"+ID+"/"+Global.INFORMATION_KEY);
 
         childRef.setValue(usermodeldata);
     }
+    // get and Setter for current UserInformation.
     public UserModel getRetrivedata()
     {
         return retrivedata;
@@ -88,6 +91,7 @@ public class Database  {
 
     public void SavingStepCount(String countedSteps, String detectedSteps,Context context)
     {
+        // Storing Step count.
         sharedPreferences= PreferenceManager.getDefaultSharedPreferences(context);
         Log.d(Global.STORINGDATALOCAL,"Storing steps in shared pref.");
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -105,6 +109,7 @@ public class Database  {
     }
     public String RetrievingStepCount(Context context)
     {
+        // Retriveinvg Step count.
         sharedPreferences= PreferenceManager.getDefaultSharedPreferences(context);
         try{
             String countedSteps = sharedPreferences.getString(Global.STORINGSTEPSLOCAL,"");
@@ -121,6 +126,7 @@ public class Database  {
     }
     public void savingDate(Calendar date,SharedPreferences.Editor editor)
     {
+        // Saving Date.
         int day = date.get(Calendar.DATE);
         int month = date.get(Calendar.MONTH)+1;
         int year = date.get(Calendar.YEAR);
@@ -130,6 +136,7 @@ public class Database  {
     }
     public Date retriveDate(SharedPreferences sharedPreferences)
     {
+        // Retrieving Date.
         int oldDay = sharedPreferences.getInt(Global.STORINGDAYLOCAL,0);
         int oldMonth = sharedPreferences.getInt(Global.STORINGMONTHLOCAL,0)-1;
         int oldYear = sharedPreferences.getInt(Global.STORINGYEARLOCAL,0);

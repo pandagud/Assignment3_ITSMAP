@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // initialize objects
         btnSignup = findViewById(R.id.btntoCreate);
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
@@ -61,7 +62,7 @@ btnContinueNoLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
-
+                // checking values
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;
@@ -121,6 +122,7 @@ btnContinueNoLogin.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
+        // Saving Values
         savedInstanceState.putSerializable(Global.SAVEDINSTANCEUSERINPUTLOGIN, (Serializable) inputEmail.getText().toString());
         savedInstanceState.putSerializable(Global.SAVEDINSTANCEUSERINPUTPASSWORD, (Serializable) inputPassword.getText().toString());
 
@@ -128,6 +130,7 @@ btnContinueNoLogin.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        // Restore Values
         inputEmail.setText(savedInstanceState.getSerializable(Global.SAVEDINSTANCEUSERINPUTLOGIN).toString());
         inputPassword.setText(savedInstanceState.getSerializable(Global.SAVEDINSTANCEUSERINPUTPASSWORD).toString());
     }

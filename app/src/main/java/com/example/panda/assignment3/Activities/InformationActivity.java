@@ -47,6 +47,7 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // initialize objects
         setContentView(R.layout.activity_information);
         activityParser  = new ActivityParser();
         activitySponnerInfo = findViewById(R.id.activitySpinnerInfo);
@@ -83,7 +84,7 @@ public class InformationActivity extends AppCompatActivity {
             }
         };
 
-
+        // initialize objects
         etInfoHeight=findViewById(R.id.etInfoHeight);
         etInfoWeight=findViewById(R.id.etWeight);
         rbInfoMan = findViewById(R.id.rbInfoMan);
@@ -107,12 +108,13 @@ public class InformationActivity extends AppCompatActivity {
         btInfoCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // initialize objects
                 final String height = etInfoHeight.getText().toString().trim();
                 final String weight = etInfoWeight.getText().toString().trim();
                 String birthday= etInfoBirthday.getText().toString().trim();
                 String sex = "";
 
-
+                // Checking Values
                 if (TextUtils.isEmpty(height)) {
                     Toast.makeText(getApplicationContext(),R.string.EnterHeight , Toast.LENGTH_SHORT).show();
                     return;
@@ -140,15 +142,13 @@ public class InformationActivity extends AppCompatActivity {
                     sex=Global.FEMALE;
                 }
                 if(currentUser==null) {
-
+                    // Creating userobj. and storing if user is logged in.
                     currentUser = new UserModel(sex, birthday.toString(), Double.parseDouble(height), Double.parseDouble(weight), activityParser.getActivityDouble(getBaseContext(),activitySponnerInfo.getSelectedItem().toString()));
                     if(auth.getCurrentUser()!=null)
                     database.saveDataForUser(currentUser, auth.getCurrentUser().getUid());
                 }
                 else{
-                    // Test data
-                    ArrayList<Double> stepsList = new ArrayList<Double>();
-                    // Test data
+
                     currentUser.setSex(sex);
                     currentUser.setBirthday(birthday.toString());
                     currentUser.setHeight(Double.parseDouble(height));
@@ -220,6 +220,7 @@ public class InformationActivity extends AppCompatActivity {
             }
             savedUM.setActivityLevel(activityParser.getActivityDouble(getBaseContext(),activitySponnerInfo.getSelectedItem().toString()));
             savedInstanceState.putSerializable(Global.SAVEDINSTANCE_INFOACTIVITY_USERMODEL,savedUM);
+            if(currentUser!=null)
             database.saveDataForUser(currentUser, auth.getCurrentUser().getUid());
             Log.d(LOG,"Saved the instance");
         }
@@ -238,20 +239,6 @@ public class InformationActivity extends AppCompatActivity {
             updateUI(userModel);
             database.setRetrivedata(userModel);
         }
-
-        try
-        {
-
-        }
-        catch (Exception e)
-        {
-
-        }
-        /*
-         UserModel currentInfoModel = (UserModel) savedInstanceState.getSerializable(Global.SAVEDINSTANCE_INFOACTIVITY_USERMODEL);
-        updateUI(currentInfoModel);
-        database.setRetrivedata(currentInfoModel);
-         */
 
         Log.d(LOG,"Restored the instance");
     }

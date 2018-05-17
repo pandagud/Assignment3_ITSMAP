@@ -33,8 +33,6 @@ public class Backgroundservice extends Service implements SensorEventListener{
 
     boolean serviceStopped;
 
-    private Database database;
-
     private final Handler bghandler = new Handler();
 
     @Override
@@ -56,13 +54,6 @@ public class Backgroundservice extends Service implements SensorEventListener{
     }
     public void initializeValues()
     {
-        /*
-          curStepDetector = 0;
-        curStepCounter = 0;
-        newStepCounter = 0;
-         */
-
-
         serviceStopped = false;
 
     }
@@ -133,7 +124,7 @@ public class Backgroundservice extends Service implements SensorEventListener{
     public void onDestroy() {
         super.onDestroy();
         Log.v(Global.BACKGROUNDSERVICE, "Stop");
-        //serviceStopped = true;
+
 
     }
 

@@ -4,7 +4,7 @@ import android.content.Context;
 import com.example.panda.assignment3.R;
 
 public class ActivityParser {
-
+    // Parser for activitylevels.
     public double getActivityDouble(Context c, String actStr){
         String actlevels[] = c.getResources().getStringArray(R.array.activity_level);
         if(actStr.equals(actlevels[0])){
