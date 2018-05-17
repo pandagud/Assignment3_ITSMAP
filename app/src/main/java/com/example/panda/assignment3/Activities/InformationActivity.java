@@ -241,7 +241,16 @@ public class InformationActivity extends AppCompatActivity {
 
                 UserModel value = dataSnapshot.getValue(UserModel.class);
                 currentUser=value;
-                updateUI(value);
+                try
+                {
+                    if(value.getSex()!=null)
+                        updateUI(value);
+                }
+                catch (Exception e)
+                {
+                    Log.d(Global.DATABASELOG,"nothing stored in database");
+                }
+
             }
 
             @Override
