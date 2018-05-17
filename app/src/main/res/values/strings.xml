@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Assignment3</string>
+    <string name="app_name">KcalCalc</string>
     <string name="Brugernavn">Brugernavn*</string>
     <string name="Kodeord">Kodeord*</string>
     <string name="GentagKodeord">Gentag Kodeord*</string>
