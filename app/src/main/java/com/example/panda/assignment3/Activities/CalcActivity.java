@@ -46,7 +46,6 @@ public class CalcActivity extends AppCompatActivity {
 
     int countedStep;
     String DetectedStep;
-    Integer countedStepsInt = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,8 +120,8 @@ public class CalcActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         unregisterReceiver(broadcastReceiver);
-        stopService(new Intent(getBaseContext(), Backgroundservice.class));
-        isServiceStopped = true;
+        //stopService(new Intent(getBaseContext(), Backgroundservice.class));
+        //isServiceStopped = true;
 
     }
 
@@ -139,12 +138,12 @@ public class CalcActivity extends AppCompatActivity {
         //Get steps from sharedPreferences here
         try
         {
-            countedStepsInt = Integer.parseInt(database.RetrievingStepCount(getApplicationContext()));
+            countedStep = Integer.parseInt(database.RetrievingStepCount(getApplicationContext()));
         }
         catch (Exception e)
         {
             Log.d(Global.COUNTEDSTEPS,"No steps was found in shared pref. ");
-            countedStepsInt=0;
+            countedStep=0;
         }
 
         if(currentCalories > 0) {
@@ -152,7 +151,6 @@ public class CalcActivity extends AppCompatActivity {
             twCalcCarbs.setText(CalculateCarbs(currentCalories) + " g");
             twCalcFat.setText(CalculateFat(currentCalories) + " g");
             twCalcProt.setText(CalculateProtein(currentCalories) + " g");
-            twCalcSteps.setText("");
             twCalcStepsKcal.setText("");
             Log.d(LOG,"UI Updated");
         }
@@ -162,9 +160,9 @@ public class CalcActivity extends AppCompatActivity {
     private int CalculateCalories(UserModel userModel){
         if(userModel != null) {
             if (userModel.getSex().equals("male")) {
-                return (int)Math.round((10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) + 5) * userModel.getActivityLevel()- countedStepsInt*STEPS_TO_CALORIES);
+                return (int)Math.round((10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) + 5) * userModel.getActivityLevel()- countedStep*STEPS_TO_CALORIES);
             } else if (userModel.getSex().equals("female")) {
-                return (int)Math.round((10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) / 161) * userModel.getActivityLevel() - countedStepsInt*STEPS_TO_CALORIES);
+                return (int)Math.round((10 * userModel.getWeight() + 6.25 * userModel.getHeight() - 5 * CalculateAge(userModel.getBirthday()) / 161) * userModel.getActivityLevel() - countedStep*STEPS_TO_CALORIES);
             } else {
                 return 0;
             }
