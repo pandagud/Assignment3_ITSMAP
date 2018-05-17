@@ -46,7 +46,7 @@ public class CalcActivity extends AppCompatActivity {
 
     int countedStep;
     String DetectedStep;
-    Integer countedStepsInt;
+    Integer countedStepsInt = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +104,7 @@ public class CalcActivity extends AppCompatActivity {
             }
         });
 
-        //Get steps from sharedPreferences here
-        //countedStepsInt = getSharedPreferences(Global.STORINGSTEPSLOCAL,)
+
 
         UpdateUI();
         updateStepCounterFromSharedPref();
@@ -137,6 +136,17 @@ public class CalcActivity extends AppCompatActivity {
     // Updates the textview elements in the UI
     private void UpdateUI(){
         currentCalories = CalculateCalories(currentUser);
+        //Get steps from sharedPreferences here
+        try
+        {
+            countedStepsInt = Integer.parseInt(database.RetrievingStepCount(getApplicationContext()));
+        }
+        catch (Exception e)
+        {
+            Log.d(Global.COUNTEDSTEPS,"No steps was found in shared pref. ");
+            countedStepsInt=0;
+        }
+
         if(currentCalories > 0) {
             twCalCalorieGoal.setText(currentCalories + " kcal");
             twCalcCarbs.setText(CalculateCarbs(currentCalories) + " g");
