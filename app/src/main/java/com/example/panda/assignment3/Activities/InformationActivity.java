@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,6 +34,7 @@ import java.util.Calendar;
 
 public class InformationActivity extends AppCompatActivity {
 
+    private String LOG = "INFORMATIONACTIVITY";
     private EditText etInfoBirthday, etInfoHeight, etInfoWeight;
     private RadioButton rbInfoMan, rbInfoWoman;
     private Button btInfoCancel, btInfoCreate;
@@ -87,8 +89,6 @@ public class InformationActivity extends AppCompatActivity {
         etInfoWeight=findViewById(R.id.etWeight);
         rbInfoMan = findViewById(R.id.rbInfoMan);
         rbInfoWoman=findViewById(R.id.rbInfoWoman);
-
-
 
 
         auth = FirebaseAuth.getInstance();
@@ -165,23 +165,20 @@ public class InformationActivity extends AppCompatActivity {
                 Intent i = new Intent(InformationActivity.this,CalcActivity.class);
                 i.putExtra(Global.INTENT_CODE_TO_CALCACTIVITY,currentUser);
                 startActivityForResult(i,Global.REQUESTCODEFROMINFORMATIONTOCALC);
-
-
             }
         });
-
-
-
     }
 
     public void updateUI(UserModel data)
     {
-            etInfoBirthday.setText(data.getBirthday());
-            etInfoHeight.setText(String.valueOf(data.getHeight()));
-            etInfoWeight.setText(String.valueOf(data.getWeight()));
-            setSpinText(activitySponnerInfo,String.valueOf(data.getActivityLevel()));
-            setSex(data.getSex());
+        etInfoBirthday.setText(data.getBirthday());
+        etInfoHeight.setText(String.valueOf(data.getHeight()));
+        etInfoWeight.setText(String.valueOf(data.getWeight()));
+        setSpinText(activitySponnerInfo,String.valueOf(data.getActivityLevel()));
+        setSex(data.getSex());
+        Log.d(LOG,"UI updated");
     }
+
     //https://stackoverflow.com/questions/13151699/set-text-on-spinner
     public void setSpinText(Spinner spin, String text)
     {
@@ -207,16 +204,27 @@ public class InformationActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putSerializable(Global.SAVEDINSTANCEUSERMODELOBJECT, currentUser);
-
+        UserModel savedUM = new UserModel();
+        savedUM.setBirthday(etInfoBirthday.getText().toString());
+        savedUM.setHeight(Double.parseDouble(etInfoHeight.getText().toString()));
+        savedUM.setWeight(Double.parseDouble(etInfoWeight.getText().toString()));
+        if(rbInfoMan.isChecked()) {
+            savedUM.setSex("male");
+        } else if(rbInfoWoman.isChecked()){
+            savedUM.setSex("female");
+        }
+        savedUM.setActivityLevel(activityParser.getActivityDouble(getBaseContext(),activitySponnerInfo.getSelectedItem().toString()));
+        savedInstanceState.putSerializable(Global.SAVEDINSTANCE_INFOACTIVITY_USERMODEL,savedUM);
+        Log.d(LOG,"Saved the instance");
     }
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        UserModel userModel = new UserModel();
-        userModel = (UserModel) savedInstanceState.getSerializable(Global.SAVEDINSTANCEUSERMODELOBJECT);
-        updateUI(userModel);
-        database.setRetrivedata(userModel);
-
+        UserModel userModel = (UserModel) savedInstanceState.getSerializable(Global.SAVEDINSTANCEUSERMODELOBJECT);
+        UserModel currentInfoModel = (UserModel) savedInstanceState.getSerializable(Global.SAVEDINSTANCE_INFOACTIVITY_USERMODEL);
+        updateUI(currentInfoModel);
+        database.setRetrivedata(currentInfoModel);
+        Log.d(LOG,"Restored the instance");
     }
     public void retriveUserModel(String ID)
     {

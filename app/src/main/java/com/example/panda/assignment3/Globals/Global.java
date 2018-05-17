@@ -18,6 +18,7 @@ public class Global {
     public static final String SAVEDINSTANCEUSERINPUTLOGIN = "Userinputlogin";
     public static final String SAVEDINSTANCEUSERINPUTPASSWORD = "Userinputpassword";
     public static final int REQUESTCODEFROMINFORMATIONTOCALC = 10;
+    public static final String SAVEDINSTANCE_INFOACTIVITY_USERMODEL = "savedinstance_infoactivity_usermodel";
 
 
     public static final String INTENT_CODE_TO_CALCACTIVITY = "intent_code_calcactivity";
